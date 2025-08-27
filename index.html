@@ -14,19 +14,18 @@
         body, html {
             height: 100%;
             font-family: Arial, sans-serif;
-        }
-
-        body {
-            background-image: url('https://s34.picofile.com/file/8486646392/bg.jpg'); /* عکس شما */
+            background-image: url('https://s34.picofile.com/file/8486646392/bg.jpg');
             background-size: cover;
             background-position: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            position: relative;
         }
 
-        /* ظرف آیکون‌ها افقی */
+        /* ظرف آیکون‌ها افقی و کمی پایین */
         .center-icons {
+            position: absolute;
+            left: 50%;
+            top: 60%; /* کمی پایین‌تر از وسط صفحه */
+            transform: translateX(-50%);
             display: flex;
             gap: 30px;
             align-items: center;
@@ -37,10 +36,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 70px;  /* عرض دایره */
-            height: 70px; /* ارتفاع دایره */
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
-            background: rgba(0,0,0,0.2); /* بکگراند کوچک و شفاف */
+            background: rgba(0,0,0,0.2);
             transition: transform 0.2s, background 0.2s;
         }
 
@@ -50,8 +49,8 @@
         }
 
         .center-icons img {
-            width: 50%; /* اندازه آیکون داخل دایره */
-            height: 50%;
+            width: 50px;
+            height: 50px;
         }
 
         @media (max-width: 600px) {
@@ -63,8 +62,8 @@
                 height: 60px;
             }
             .center-icons img {
-                width: 50%;
-                height: 50%;
+                width: 40px;
+                height: 40px;
             }
         }
     </style>
@@ -74,19 +73,19 @@
     <div class="center-icons">
         <!-- تلگرام -->
         <a href="https://t.me/mustafa_arekhi" target="_blank">
-            <img src="https://s34.picofile.com/file/8486647150/telegram.png" alt="Telegram">
+            <img src="https://s34.picofile.com/file/8486647400/telegram_1_.svg.html" alt="Telegram">
         </a>
         <!-- اینستاگرام -->
         <a href="https://instagram.com/mostafa.arekhi" target="_blank">
-            <img src="https://s34.picofile.com/file/8486647134/insta.png" alt="Instagram">
+            <img src="https://s34.picofile.com/file/8486647392/instagram_3_.svg.html" alt="Instagram">
         </a>
         <!-- واتس‌اپ -->
         <a href="https://wa.me/+989331455161" target="_blank">
-            <img src="https://s34.picofile.com/file/8486647142/wa.png" alt="WhatsApp">
+            <img src="https://s34.picofile.com/file/8486647418/wa.svg.html" alt="WhatsApp">
         </a>
         <!-- تماس -->
         <a href="tel:+989331455161">
-            <img src="https://s34.picofile.com/file/8486647242/telephone.png" alt="Phone">
+            <img src="https://s34.picofile.com/file/8486647426/telephone.svg.html" alt="Phone">
         </a>
     </div>
 
