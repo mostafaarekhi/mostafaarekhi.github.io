@@ -1,93 +1,289 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مصطفی آرخی | تدوینگر</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>رزومه مصطفی آریخی</title>
+  <meta name="description" content="ادیت و تدوین ویدیو | تبلیغاتی، آموزشی، شبکه‌های اجتماعی | طراحی گرافیک" />
 
-        body, html {
-            height: 100%;
-            font-family: Arial, sans-serif;
-            background-image: url('https://s34.picofile.com/file/8486646392/bg.jpg');
-            background-size: cover;
-            background-position: center;
-            position: relative;
-        }
+  <!-- اگر خواستید فونت سفارشی اضافه کنید: -->
+  <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700&display=swap" rel="stylesheet"> -->
 
-        /* ظرف آیکون‌ها افقی و کمی پایین */
-        .center-icons {
-            position: absolute;
-            left: 50%;
-            top: 60%; /* کمی پایین‌تر از وسط صفحه */
-            transform: translateX(-50%);
-            display: flex;
-            gap: 30px;
-            align-items: center;
-            justify-content: center;
-        }
+  <style>
+    :root{
+      --bg-start:#0f1f35;
+      --bg-end:#081425;
+      --card:#0c1c30cc;
+      --text:#e9eef7;
+      --muted:#b9c4d6;
+      --accent:#4ab0ff;
+      --accent-2:#7bd389;
+      --border:#1f3250;
+      --shadow: 0 20px 60px rgba(0,0,0,0.35);
+    }
 
-        .center-icons a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            background: rgba(0,0,0,0.2);
-            transition: transform 0.2s, background 0.2s;
-        }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: "Vazirmatn","IRANSans","Segoe UI",Tahoma,Arial,sans-serif;
+      color:var(--text);
+      background: radial-gradient(1200px 700px at 70% 40%, var(--bg-start), var(--bg-end));
+      background-attachment: fixed;
+    }
 
-        .center-icons a:hover {
-            transform: scale(1.3);
-            background: rgba(0,0,0,0.4);
-        }
+    .page{
+      min-height:100vh;
+      display:grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap:2rem;
+      align-items:center;
+      padding:4rem 5vw;
+    }
 
-        .center-icons img {
-            width: 50px;
-            height: 50px;
-        }
+    /* کارت متن سمت چپ */
+    .card{
+      background:linear-gradient(180deg, rgba(17,33,55,0.85), rgba(10,22,38,0.85));
+      border:1px solid var(--border);
+      border-radius:24px;
+      box-shadow:var(--shadow);
+      backdrop-filter:saturate(110%) blur(8px);
+      padding:2rem 2.2rem;
+    }
 
-        @media (max-width: 600px) {
-            .center-icons {
-                gap: 20px;
-            }
-            .center-icons a {
-                width: 60px;
-                height: 60px;
-            }
-            .center-icons img {
-                width: 40px;
-                height: 40px;
-            }
-        }
-    </style>
+    .header{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:1rem;
+      border-bottom:1px dashed var(--border);
+      padding-bottom:1.2rem;
+      margin-bottom:1.6rem;
+    }
+
+    .title{
+      font-size:1.75rem;
+      font-weight:700;
+      letter-spacing:0.2px;
+    }
+
+    .subtitle{
+      font-size:0.95rem;
+      color:var(--muted);
+    }
+
+    .section{
+      margin-bottom:1.6rem;
+    }
+    .section h3{
+      margin:0 0 0.6rem 0;
+      font-size:1.1rem;
+      font-weight:700;
+      color:var(--accent);
+    }
+    .section p{
+      margin:0.4rem 0;
+      line-height:1.9;
+      color:var(--text);
+    }
+
+    /* مهارت‌ها */
+    .skills{
+      display:flex;
+      gap:0.9rem;
+      flex-wrap:wrap;
+      margin-top:0.8rem;
+    }
+    .skill{
+      display:flex;
+      align-items:center;
+      gap:0.6rem;
+      background:rgba(255,255,255,0.04);
+      border:1px solid var(--border);
+      color:var(--muted);
+      padding:0.55rem 0.75rem;
+      border-radius:12px;
+      transition:transform 0.2s ease, background 0.2s ease;
+    }
+    .skill:hover{transform:translateY(-2px); background:rgba(255,255,255,0.06)}
+    .skill img{
+      width:24px; height:24px; display:block;
+      filter:drop-shadow(0 2px 4px rgba(0,0,0,0.25));
+    }
+    .skill .label{font-size:0.9rem; color:var(--text)}
+
+    /* تماس های گوشه کارت */
+    .contacts{
+      display:flex;
+      gap:0.7rem;
+      margin-top:1rem;
+    }
+    .contact{
+      width:38px; height:38px;
+      display:grid; place-items:center;
+      background:rgba(255,255,255,0.06);
+      border:1px solid var(--border);
+      border-radius:12px;
+      transition:transform 0.2s ease, background 0.2s ease;
+    }
+    .contact:hover{transform:translateY(-2px); background:rgba(255,255,255,0.09)}
+    .contact img{width:20px;height:20px;display:block}
+
+    /* ستون راست: تصویر پروفایل */
+    .profile{
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .profile .photo-wrap{
+      position:relative;
+      width:min(520px, 80vw);
+      aspect-ratio: 3 / 4;
+      border-radius:28px;
+      overflow:hidden;
+      box-shadow: var(--shadow);
+      border:1px solid var(--border);
+      background: linear-gradient(180deg, rgba(12,24,40,0.5), rgba(8,20,37,0.5));
+    }
+    .profile img{
+      width:100%; height:100%; object-fit:cover; object-position:center;
+      display:block;
+      transform:translateZ(0);
+    }
+    /* هاله نوری پشت عکس */
+    .profile::after{
+      content:"";
+      position:absolute;
+      inset:auto;
+      width:60%;
+      height:60%;
+      right:10%;
+      bottom:5%;
+      background: radial-gradient(closest-side, rgba(74,176,255,0.25), transparent 60%);
+      filter: blur(30px);
+      pointer-events:none;
+    }
+
+    /* لینک‌های پایین صفحه */
+    .footer{
+      margin-top:2rem;
+      display:flex;
+      justify-content:center;
+      gap:0.9rem;
+    }
+    .cta{
+      display:flex; align-items:center; gap:0.6rem;
+      padding:0.7rem 1rem;
+      background:rgba(255,255,255,0.06);
+      border:1px solid var(--border);
+      border-radius:14px;
+      color:var(--text);
+      text-decoration:none;
+      transition:transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    }
+    .cta:hover{
+      transform:translateY(-2px);
+      background:rgba(255,255,255,0.09);
+      border-color:#2a4772;
+    }
+    .cta img{width:20px;height:20px;display:block}
+    .cta .txt{font-size:0.95rem}
+
+    /* ریسپانسیو */
+    @media (max-width: 980px){
+      .page{grid-template-columns: 1fr; gap:1.4rem; padding:2.2rem 5vw}
+      .profile{order:-1}
+      .header{flex-direction:column; align-items:flex-start}
+    }
+  </style>
 </head>
 <body>
 
-    <div class="center-icons">
-        <!-- تلگرام -->
-        <a href="https://t.me/mustafa_arekhi" target="_blank">
-            <img src="https://s34.picofile.com/file/8486647626/tell.png" alt="Telegram">
+  <main class="page">
+
+    <!-- ستون متن -->
+    <section class="card">
+      <div class="header">
+        <div>
+          <div class="title">سلام، من مصطفی آریخی هستم</div>
+          <div class="subtitle">ادیت و تدوین ویدیو | تبلیغاتی، آموزشی، شبکه‌های اجتماعی | طراحی گرافیک</div>
+        </div>
+        <!-- آیکن‌های تماس سریع (بالای کارت)؛ لینک‌ها را بعدا می‌توانید بدهید -->
+        <div class="contacts" aria-label="راه‌های ارتباط">
+          <a class="contact" href="#" title="اینستاگرام">
+            <img src="PATH_TO_INSTAGRAM_ICON" alt="Instagram">
+          </a>
+          <a class="contact" href="#" title="تلگرام">
+            <img src="PATH_TO_TELEGRAM_ICON" alt="Telegram">
+          </a>
+          <a class="contact" href="#" title="ایمیل">
+            <img src="PATH_TO_EMAIL_ICON" alt="Email">
+          </a>
+          <a class="contact" href="#" title="تلفن">
+            <img src="PATH_TO_PHONE_ICON" alt="Phone">
+          </a>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>درباره من</h3>
+        <p>
+          در زمینه ادیت و تدوین ویدیو فعالیت می‌کنم و بیشتر روی ویدیوهای تبلیغاتی، آموزشی و محتوای شبکه‌های اجتماعی کار می‌کنم.
+          سعی می‌کنم در پروژه‌ها دقت و توجه به جزئیات را در اولویت قرار دهم.
+        </p>
+        <p>
+          علاوه بر ادیت ویدیو، در زمینه طراحی گرافیک نیز فعالیت می‌کنم. سعی می‌کنم پروژه‌ها را به بهترین شکل ممکن انجام دهم.
+          تجربه‌ی و زمان زیادی صرف انجام پروژه‌ها کرده‌ام.
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>مهارت ها</h3>
+        <div class="skills">
+          <div class="skill">
+            <img src="PATH_TO_PREMIERE_ICON" alt="Adobe Premiere Pro">
+            <span class="label">Premiere Pro</span>
+          </div>
+          <div class="skill">
+            <img src="PATH_TO_AFTER_EFFECTS_ICON" alt="Adobe After Effects">
+            <span class="label">After Effects</span>
+          </div>
+          <div class="skill">
+            <img src="PATH_TO_PHOTOSHOP_ICON" alt="Adobe Photoshop">
+            <span class="label">Photoshop</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- لینک‌های پایین صفحه -->
+      <div class="footer" aria-label="لینک‌های شبکه‌های اجتماعی">
+        <a class="cta" href="https://wa.me/YOUR_NUMBER" target="_blank" rel="noopener">
+          <img src="PATH_TO_WHATSAPP_ICON" alt="WhatsApp">
+          <span class="txt">واتس‌اپ</span>
         </a>
-        <!-- اینستاگرام -->
-        <a href="https://instagram.com/mostafa.arekhi" target="_blank">
-            <img src="https://s34.picofile.com/file/8486647634/insta.png" alt="Instagram">
+        <a class="cta" href="https://t.me/YOUR_USERNAME" target="_blank" rel="noopener">
+          <img src="PATH_TO_TELEGRAM_ICON" alt="Telegram">
+          <span class="txt">تلگرام</span>
         </a>
-        <!-- واتس‌اپ -->
-        <a href="https://wa.me/+989331455161" target="_blank">
-            <img src="https://s34.picofile.com/file/8486647618/wa.png" alt="WhatsApp">
+        <a class="cta" href="https://instagram.com/YOUR_USERNAME" target="_blank" rel="noopener">
+          <img src="PATH_TO_INSTAGRAM_ICON" alt="Instagram">
+          <span class="txt">اینستاگرام</span>
         </a>
-        <!-- تماس -->
-        <a href="tel:+989331455161">
-            <img src="https://s34.picofile.com/file/8486647650/phone.png" alt="Phone">
-        </a>
-    </div>
+      </div>
+    </section>
+
+    <!-- ستون عکس -->
+    <aside class="profile" aria-label="تصویر پروفایل">
+      <div class="photo-wrap">
+        <!-- عکس خودتان را اینجا قرار دهید -->
+        <img src="PATH_TO_YOUR_PHOTO" alt="مصطفی آریخی">
+      </div>
+    </aside>
+
+  </main>
 
 </body>
 </html>
