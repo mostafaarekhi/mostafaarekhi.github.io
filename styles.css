@@ -1,10 +1,17 @@
 /* Basic reset */
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%}
+html,body{height:100%;max-height: 100%;}
 body{font-family:'Vazirmatn', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background:radial-gradient(circle at 20% 20%, #0b243d, #0b1220 35%, #0a0a0a 100%); color:#e6e6e6;}
 
-.hero{min-height:100vh;display:flex;align-items:center;}
+.hero{display:flex;align-items:center;}
 .container{width:92%;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 520px;gap:40px;align-items:center}
+
+/* Desktop-only: fix layout and disable page scroll */
+@media (min-width:801px){
+  html, body {height:100vh; overflow:hidden}
+  .hero{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+  .container{height:100%;max-height:100%;overflow:visible}
+}
 
 .left{padding:40px 20px}
 .subtitle{font-size:22px;text-align:center;margin-bottom:18px;font-weight:700;color:#fff}
@@ -31,10 +38,10 @@ body{font-family:'Vazirmatn', system-ui, -apple-system, 'Segoe UI', Roboto, 'Hel
 .btn.icon img{width:32px;height:32px;filter:invert(1)}
 
 .right{position:relative;padding:20px 10px;display:flex;flex-direction:column;align-items:flex-start}
-.intro{align-self:flex-end;text-align:right;padding:16px 24px}
-.hello{color:#cfd8ff;font-size:20px}
-.name{font-size:46px;color:#fff;margin-top:6px;margin-bottom:6px}
-.name strong{color:#7bd0ff;font-weight:800}
+.intro{text-align:right;padding:16px 24px}
+.hello{color:#fff;font-size:46px}
+.name{font-size:46px;color:#fff;margin-top:6px;margin-bottom:6px;}
+.name strong{color:#fff;font-weight:900}
 .role{color:#bfc8d8}
 
 .portrait-wrap{position:relative;width:520px;height:620px;display:flex;align-items:center;justify-content:center}
@@ -50,7 +57,7 @@ body{font-family:'Vazirmatn', system-ui, -apple-system, 'Segoe UI', Roboto, 'Hel
   .container{grid-template-columns:1fr 380px}
   .portrait-wrap{width:340px;height:420px}
   .portrait-wrap .bg{width:300px;right:30px;top:20px}
-  .name{font-size:40px}
+  .name{font-size:46px}
 }
 
 /* Entrance animations */
@@ -89,6 +96,7 @@ body{font-family:'Vazirmatn', system-ui, -apple-system, 'Segoe UI', Roboto, 'Hel
 }
 
 @media (max-width:420px){
+  .hello{font-size:30px}
   .name{font-size:30px}
   .about{font-size:16px}
 }
