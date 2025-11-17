@@ -45,7 +45,7 @@ body{font-family:'Vazirmatn', system-ui, -apple-system, 'Segoe UI', Roboto, 'Hel
 .role{color:#bfc8d8}
 
 .portrait-wrap{position:relative;width:520px;height:620px;display:flex;align-items:center;justify-content:center}
-.portrait-wrap .bg{position:absolute;right:40px;top:30px;width:800px;filter:blur(26px) saturate(140%);opacity:0.95}
+.portrait-wrap .bg{position:absolute;right:40px;top:30px;width:800px;filter:blur(26px) saturate(140%);opacity:0.5}
 .portrait{position:relative;width:360px;height:auto;border-radius:12px;box-shadow:none;object-fit:cover;border:none}
 
 /* small visual polish */
