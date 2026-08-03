@@ -100,5 +100,85 @@
         </section>
       </div>
     </main>
+
+    <!-- ============ بخش جدید: نمونه‌کارها ============ -->
+    <section class="showcase">
+      <div class="container container-showcase">
+        <!-- سمت راست: جای متن (نقطه‌چین سفید) -->
+        <section class="showcase-text">
+          <h2 class="subtitle">نمونه کارها</h2>
+          <p class="about">
+            بخشی از پروژه‌هایی که در زمینه تدوین، موشن گرافیک و طراحی
+            محتوا برای کسب‌وکارها و برندهای مختلف انجام داده‌ام را در این
+            بخش مشاهده می‌کنید. برای دیدن نمونه بیشتر می‌توانید به صفحه
+            اینستاگرام یا کانال تلگرام من مراجعه کنید.
+          </p>
+        </section>
+
+        <!-- سمت چپ: اسلایدر ۱۰ تایی ۹:۱۶ (نقطه‌چین سبز) -->
+        <section class="showcase-slider">
+          <div class="slider" id="portfolioSlider">
+            <div class="slider-track" id="sliderTrack">
+              <div class="slide"><span>۰۱</span></div>
+              <div class="slide"><span>۰۲</span></div>
+              <div class="slide"><span>۰۳</span></div>
+              <div class="slide"><span>۰۴</span></div>
+              <div class="slide"><span>۰۵</span></div>
+              <div class="slide"><span>۰۶</span></div>
+              <div class="slide"><span>۰۷</span></div>
+              <div class="slide"><span>۰۸</span></div>
+              <div class="slide"><span>۰۹</span></div>
+              <div class="slide"><span>۱۰</span></div>
+            </div>
+
+            <button class="slider-nav prev" id="sliderPrev" aria-label="اسلاید قبلی">
+              <img src="/assets/down-right.svg" alt="prev" />
+            </button>
+            <button class="slider-nav next" id="sliderNext" aria-label="اسلاید بعدی">
+              <img src="/assets/down-right.svg" alt="next" />
+            </button>
+          </div>
+
+          <div class="slider-dots" id="sliderDots"></div>
+        </section>
+      </div>
+    </section>
+
+    <script>
+      (function () {
+        const track = document.getElementById("sliderTrack");
+        const dotsWrap = document.getElementById("sliderDots");
+        const prevBtn = document.getElementById("sliderPrev");
+        const nextBtn = document.getElementById("sliderNext");
+        const slides = Array.from(track.children);
+        let index = 0;
+
+        slides.forEach((_, i) => {
+          const dot = document.createElement("button");
+          dot.className = "dot" + (i === 0 ? " active" : "");
+          dot.setAttribute("aria-label", "اسلاید " + (i + 1));
+          dot.addEventListener("click", () => goTo(i));
+          dotsWrap.appendChild(dot);
+        });
+
+        function update() {
+          // RTL: shift track the other direction
+          track.style.transform = "translateX(" + -index * 100 + "%)";
+          Array.from(dotsWrap.children).forEach((d, i) =>
+            d.classList.toggle("active", i === index)
+          );
+        }
+
+        function goTo(i) {
+          index = (i + slides.length) % slides.length;
+          update();
+        }
+
+        prevBtn.addEventListener("click", () => goTo(index - 1));
+        nextBtn.addEventListener("click", () => goTo(index + 1));
+
+        update();
+      })();
+    </script>
   </body>
 </html>
