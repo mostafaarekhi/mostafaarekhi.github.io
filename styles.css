@@ -486,6 +486,7 @@ body {
 .slider-nav img {
   width: 20px;
   height: 20px;
+  filter: invert(1);
 }
 .slider-nav.prev {
   right: 14px;
