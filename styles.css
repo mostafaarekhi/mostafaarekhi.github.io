@@ -493,14 +493,14 @@ body {
   left: auto;
 }
 .slider-nav.prev img {
-  transform: rotate(45deg);
+  transform: rotate(-45deg);
 }
 .slider-nav.next {
   left: 14px;
   right: auto;
 }
 .slider-nav.next img {
-  transform: rotate(-135deg);
+  transform: rotate(135deg);
 }
 
 .slider-dots {
