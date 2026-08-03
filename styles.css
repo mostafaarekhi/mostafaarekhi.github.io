@@ -30,23 +30,15 @@ body {
   align-items: center;
 }
 
-/* Desktop-only: fix layout and disable page scroll */
+/* Desktop-only: hero fills the first screen, page scrolls normally after it */
 @media (min-width: 801px) {
-  html,
-  body {
-    height: 100vh;
-    overflow: hidden;
-  }
   .hero {
-    position: fixed;
-    inset: 0;
+    min-height: 90vh;
     display: flex;
     align-items: center;
     justify-content: center;
   }
   .container {
-    height: 100%;
-    max-height: 100%;
     overflow: visible;
   }
 }
@@ -82,7 +74,6 @@ body {
   padding: 0;
   margin: 0 0 28px;
 }
-/* .skills li{display:flex;flex-direction:column;align-items:center;justify-content:center;width:84px;height:84px;border-radius:16px;backdrop-filter: blur(6px);box-shadow: 0 6px 18px rgba(0,0,0,0.6)} */
 .skills img {
   width: 56px;
   height: 56px;
@@ -127,7 +118,6 @@ body {
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
 }
 
-/* arrow button: small, left side */
 .btn.arrow {
   width: 48px;
   height: 48px;
@@ -143,7 +133,6 @@ body {
   transform: rotate(-90deg);
 }
 
-/* icon button: larger, right side */
 .btn.icon {
   width: 68px;
   height: 48px;
@@ -163,7 +152,6 @@ body {
   direction: rtl;
 }
 
-/* Mobile: force single-row grid with 3 equal columns for socials */
 @media (max-width: 800px) {
   .socials {
     display: grid;
@@ -261,7 +249,6 @@ body {
   mask-size: cover;
 }
 
-/* small visual polish */
 .portrait-wrap::after {
   display: none;
 }
@@ -333,7 +320,6 @@ body {
   animation: popIn 0.9s cubic-bezier(0.2, 0.9, 0.3, 1) both 0.12s;
 }
 
-/* Subtle text/glow polish to better match reference */
 .name {
   text-shadow: 0 6px 26px rgba(19, 55, 102, 0.35);
 }
@@ -345,7 +331,6 @@ body {
   opacity: 0.95;
 }
 
-/* Slightly reduce heavy blur on bg image for small screens */
 @media (max-width: 900px) {
   .portrait-wrap::after {
     filter: blur(32px);
@@ -398,5 +383,171 @@ body {
   }
   .about {
     font-size: 16px;
+  }
+}
+
+/* =========================================================
+   بخش جدید: نمونه‌کارها (Showcase) + اسلایدر عمودی ۹:۱۶
+   ========================================================= */
+
+.showcase {
+  padding: 20px 0 60px;
+  position: relative;
+}
+
+.container-showcase {
+  grid-template-columns: 1fr 420px;
+  align-items: center;
+  gap: 60px;
+}
+
+.showcase-text {
+  padding: 20px 20px;
+}
+.showcase-text .subtitle {
+  text-align: right;
+}
+.showcase-text .about {
+  margin: 0 0 26px;
+  max-width: 620px;
+}
+
+/* اسلایدر */
+.showcase-slider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+.slider {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  aspect-ratio: 9 / 16;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #131318;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+}
+
+.slider-track {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  direction: ltr;
+  transition: transform 0.5s cubic-bezier(0.22, 0.9, 0.3, 1);
+}
+
+.slide {
+  flex: 0 0 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    160deg,
+    rgba(30, 60, 110, 0.35),
+    rgba(10, 10, 14, 0.9)
+  );
+  color: #fff;
+  font-size: 54px;
+  font-weight: 900;
+  opacity: 0.9;
+}
+
+.slider-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(20, 20, 24, 0.55);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 3;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.slider-nav:hover {
+  background: rgba(40, 40, 48, 0.8);
+}
+.slider-nav img {
+  width: 20px;
+  height: 20px;
+  filter: invert(1);
+}
+.slider-nav.prev {
+  right: 14px;
+  left: auto;
+}
+.slider-nav.prev img {
+  transform: rotate(45deg);
+}
+.slider-nav.next {
+  left: 14px;
+  right: auto;
+}
+.slider-nav.next img {
+  transform: rotate(-135deg);
+}
+
+.slider-dots {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  padding: 0;
+}
+.dot.active {
+  background: #fff;
+  width: 22px;
+  border-radius: 5px;
+}
+
+@media (max-width: 1100px) {
+  .container-showcase {
+    grid-template-columns: 1fr 320px;
+    gap: 30px;
+  }
+}
+
+@media (max-width: 800px) {
+  .showcase {
+    padding: 60px 0;
+  }
+  .container-showcase {
+    grid-template-columns: 1fr;
+  }
+  .showcase-text {
+    order: 1;
+    text-align: center;
+    padding: 12px 10px;
+  }
+  .showcase-text .subtitle {
+    text-align: center;
+  }
+  .showcase-text .about {
+    margin: 0 auto 26px;
+  }
+  .showcase-slider {
+    order: 2;
+  }
+  .slider {
+    max-width: 300px;
   }
 }
