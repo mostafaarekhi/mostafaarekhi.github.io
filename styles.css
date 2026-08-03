@@ -492,16 +492,16 @@ body {
   right: 14px;
   left: auto;
 }
-.slider-nav.prev img {
-  transform: rotate(90deg);
+/* .slider-nav.prev img {
+  transform: rotate(90deg); */
 }
 .slider-nav.next {
   left: 14px;
   right: auto;
 }
-.slider-nav.next img {
+/* .slider-nav.next img {
   transform: rotate(90deg);
-}
+} */
 
 .slider-dots {
   display: flex;
