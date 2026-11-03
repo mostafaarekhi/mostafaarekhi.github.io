@@ -125,7 +125,12 @@
       {
         "name": "hero-float",
         "value": "7s ease-in-out infinite",
-        "purpose": "Decorative object motion; disabled with reduced-motion CSS."
+        "purpose": "Hero tile floats, with a 9-second orbit breathing loop. IntersectionObserver and page visibility pause offscreen/hidden motion. Reduced-motion preference disables loops."
+      },
+      {
+        "name": "portrait-loop",
+        "value": "8s ease-in-out infinite",
+        "purpose": "Portrait drifts up to 10px and rotates -1.2deg; the layer moves 7px and the backlight opacity breathes. Runs only while artwork is visible and motion preference allows it."
       },
       {
         "name": "one-shot-entrance",
