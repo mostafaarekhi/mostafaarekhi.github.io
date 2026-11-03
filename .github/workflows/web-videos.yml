@@ -1,0 +1,50 @@
+name: Build lighter portfolio videos
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/web-videos.yml]
+permissions:
+  contents: write
+jobs:
+  encode:
+    if: github.event.head_commit.message == 'Run approved one-time web video compression'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install media tools
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - name: Create web copies and preserve originals
+        run: |
+          python3 - <<'PY'
+          import hashlib, json, pathlib, re, shutil, subprocess
+          files = re.findall(r'data-src="(assets/[^"?]+\.mp4)', pathlib.Path('index.html').read_text())
+          assert len(files) == len(set(files)) == 14
+          pathlib.Path('assets/web').mkdir(exist_ok=True)
+          report = []
+          def encode(source, output, copy_video=False):
+              video = ['-c:v', 'copy'] if copy_video else ['-vf', 'scale=720:-2,fps=30', '-c:v', 'libx264', '-preset', 'slow', '-crf', '24', '-maxrate', '650k', '-bufsize', '1300k', '-pix_fmt', 'yuv420p']
+              subprocess.run(['ffmpeg', '-v', 'error', '-i', str(source), '-map', '0:v:0', '-map', '0:a:0', *video, '-c:a', 'aac', '-b:a', '64k', '-movflags', '+faststart', '-map_metadata', '-1', '-y', str(output)], check=True)
+          for name in files:
+              source = pathlib.Path(name)
+              output = pathlib.Path('assets/web') / source.name
+              original_hash = hashlib.sha256(source.read_bytes()).hexdigest()
+              encode(source, output)
+              if output.stat().st_size >= source.stat().st_size:
+                  encode(source, output, copy_video=True)
+              if output.stat().st_size >= source.stat().st_size:
+                  shutil.copyfile(source, output)
+              subprocess.run(['ffmpeg', '-v', 'error', '-i', str(output), '-f', 'null', '-'], check=True)
+              assert hashlib.sha256(source.read_bytes()).hexdigest() == original_hash
+              report.append({'original': name, 'web': str(output), 'original_bytes': source.stat().st_size, 'web_bytes': output.stat().st_size, 'original_preserved': True})
+          pathlib.Path('web-video-optimization.json').write_text(json.dumps(report, indent=2) + '\n')
+          print('Original:', sum(r['original_bytes'] for r in report), 'Web:', sum(r['web_bytes'] for r in report))
+          PY
+      - name: Save copies and remove this temporary workflow
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          rm .github/workflows/web-videos.yml
+          git add assets/web web-video-optimization.json
+          git add -u .github/workflows/web-videos.yml
+          git commit -m "Add lighter web videos while preserving original uploads"
+          git push origin HEAD:main
