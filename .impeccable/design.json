@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-03T08:00:39.595Z",
+  "generatedAt": "2026-11-03T08:05:57.675Z",
   "title": "Design System: Mostafa Arekhi Portfolio",
   "extensions": {
     "colorMeta": {
@@ -214,7 +214,7 @@
     {
       "name": "Project slider controls",
       "kind": "custom",
-      "description": "Previous/next controls and Persian live range below the four-card desktop RTL carousel (two on tablet, one on mobile). Actual script supports mouse/touch drag with snap on release, suppresses clicks after a drag, and preserves vertical touch pan and pinch zoom. No bottom control-strip exclusion.",
+      "description": "Previous/next controls and Persian live range below the four-card desktop RTL carousel (two on tablet, one on mobile). Mouse-only pointer dragging may start on the picture, rail or play circle, snaps on release and suppresses the subsequent click. Touch uses native horizontal overflow scrolling and CSS snap with touch-action:auto, preserving vertical scrolling and pinch zoom. lostpointercapture is handled only when its target is the carousel grid.",
       "html": "<div class=\"ds-slider-controls\" dir=\"rtl\"><button type=\"button\" disabled aria-label=\"نمونه‌کارهای قبلی\">قبلی</button><span class=\"ds-project-position\" role=\"status\" aria-live=\"polite\" aria-atomic=\"true\">۱ تا ۴ از ۱۴</span><button type=\"button\" aria-label=\"نمونه‌کارهای بعدی\">بعدی</button></div>",
       "css": ".ds-slider-controls{display:flex;align-items:center;justify-content:center;gap:30px;margin-top:22px;font-family:Vazirmatn,sans-serif}.ds-slider-controls button{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:46px;padding:8px 18px;background:#21172e;border:1px solid #71508e;border-radius:9px;color:#e0c7f5;font:14px Vazirmatn,sans-serif;cursor:pointer;transition:background .2s}.ds-slider-controls button:hover:not(:disabled){background:#573178}.ds-slider-controls button:disabled{opacity:.35;cursor:default}.ds-slider-controls button:focus-visible{outline:2px solid #c99cff;outline-offset:6px}.ds-project-position{min-width:130px;text-align:center;color:#c6aecf;font-size:13px;font-variant-numeric:tabular-nums}@media(max-width:640px){.ds-slider-controls{gap:12px;margin-top:17px}.ds-slider-controls button{padding:9px 12px;font-size:13px;gap:6px}.ds-project-position{min-width:85px;font-size:12px}}@media(prefers-reduced-motion:reduce){.ds-slider-controls button{transition:none}}"
     }

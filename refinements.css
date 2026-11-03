@@ -162,8 +162,8 @@ main,footer{margin-left:0}
 @media(max-width:900px) and (min-width:641px){.project-grid .project-card{flex-basis:calc((100% - 26px)/2)}}
 @media(max-width:640px){.project-grid{max-width:none;gap:18px}.project-grid .project-card{flex-basis:100%}.slider-controls{gap:12px;margin-top:17px}.slider-controls button{padding:9px 12px;font-size:13px;gap:6px}.project-position{min-width:85px;font-size:12px}}
 
-.project-grid{cursor:grab;touch-action:pan-y pinch-zoom;user-select:none}
-.project-grid video{touch-action:pan-y pinch-zoom;cursor:grab}
+.project-grid{cursor:grab;touch-action:auto;user-select:none}
+.project-grid video{touch-action:auto;cursor:grab}
 .project-grid.is-dragging{cursor:grabbing;scroll-snap-type:none;scroll-behavior:auto}
 .project-grid.is-dragging *{cursor:grabbing!important}
 

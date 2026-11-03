@@ -77,10 +77,11 @@ function moveProjects(index) {
 }
 previousProjects.addEventListener('click', () => moveProjects(activeProject - projectsPerView));
 nextProjects.addEventListener('click', () => moveProjects(activeProject + projectsPerView));
-// Drag the video picture or rail; a click toggles playback.
+// Touch uses browser-native scrolling; only mouse dragging is handled here.
 let projectDrag = null, suppressProjectClickUntil = 0;
 projectGrid.addEventListener('pointerdown', event => {
- if (!event.isPrimary || event.button !== 0 || event.target.closest('button,a,input,select')) return;
+ if (event.pointerType !== 'mouse' || !event.isPrimary || event.button !== 0) return;
+ if (event.target.closest('a,input,select')) return;
  projectDrag = { id: event.pointerId, x: event.clientX, y: event.clientY, left: projectGrid.scrollLeft, moved: false };
 }, { capture: true });
 projectGrid.addEventListener('pointermove', event => {
@@ -110,7 +111,9 @@ function finishProjectDrag(event) {
 }
 projectGrid.addEventListener('pointerup', finishProjectDrag);
 projectGrid.addEventListener('pointercancel', finishProjectDrag);
-projectGrid.addEventListener('lostpointercapture', finishProjectDrag);
+projectGrid.addEventListener('lostpointercapture', event => {
+ if (event.target === projectGrid) finishProjectDrag(event);
+});
 projectGrid.addEventListener('click', event => {
  if (performance.now() < suppressProjectClickUntil) { event.preventDefault(); event.stopImmediatePropagation(); }
 }, { capture: true });
