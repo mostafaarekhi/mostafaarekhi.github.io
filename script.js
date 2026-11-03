@@ -133,12 +133,35 @@ updateProjectSlider();
 
 const scrubber = document.querySelector('.timeline-scrubber'), playhead = document.querySelector('.playhead'), timelineButton = document.querySelector('.timeline-play'), timecode = document.querySelector('#art-timecode');
 let animationFrame = null, previousTime = 0, position = Number(scrubber.value);
+let timelineInView = false, timelinePausedByUser = false;
+const timelineMotion = matchMedia('(prefers-reduced-motion: reduce)');
 function renderTimeline() { playhead.style.setProperty('--position', `${position / 210 * 100}%`); timecode.textContent = `00:00:${String(Math.floor(position / 30)).padStart(2, '0')}:${String(Math.floor(position % 30)).padStart(2, '0')}`; scrubber.value = position; }
 function stopTimeline() { cancelAnimationFrame(animationFrame); animationFrame = null; timelineButton.setAttribute('aria-pressed', 'false'); timelineButton.setAttribute('aria-label', 'پخش تایم‌لاین'); timelineButton.querySelector('use').setAttribute('href', '#play'); }
-function animateTimeline(time) { if (previousTime) position += Math.min(time - previousTime, 100) * .03; previousTime = time; if (position >= 210) { position = 210; renderTimeline(); stopTimeline(); return; } renderTimeline(); animationFrame = requestAnimationFrame(animateTimeline); }
-timelineButton.addEventListener('click', () => { if (animationFrame !== null) { stopTimeline(); return; } if (position >= 210) position = 0; previousTime = 0; timelineButton.setAttribute('aria-pressed', 'true'); timelineButton.setAttribute('aria-label', 'توقف تایم‌لاین'); timelineButton.querySelector('use').setAttribute('href', '#pause'); animationFrame = requestAnimationFrame(animateTimeline); });
+function animateTimeline(time) { if (previousTime) position += Math.min(time - previousTime, 100) * .03; previousTime = time; if (position >= 210) position %= 210; renderTimeline(); animationFrame = requestAnimationFrame(animateTimeline); }
+function startTimeline() {
+ if (animationFrame !== null) return;
+ previousTime = 0;
+ timelineButton.setAttribute('aria-pressed', 'true');
+ timelineButton.setAttribute('aria-label', 'توقف تایم‌لاین');
+ timelineButton.querySelector('use').setAttribute('href', '#pause');
+ animationFrame = requestAnimationFrame(animateTimeline);
+}
+function syncTimeline() {
+ if (timelineInView && !document.hidden && !timelinePausedByUser && !timelineMotion.matches) startTimeline();
+ else stopTimeline();
+}
+timelineButton.addEventListener('click', () => {
+ timelinePausedByUser = animationFrame !== null;
+ if (timelinePausedByUser) stopTimeline();
+ else startTimeline();
+});
+new IntersectionObserver(entries => {
+ timelineInView = entries[0].isIntersecting;
+ syncTimeline();
+}).observe(document.querySelector('.timeline-panel'));
+timelineMotion.addEventListener('change', syncTimeline);
 scrubber.addEventListener('input', () => { position = Number(scrubber.value); renderTimeline(); });
-document.addEventListener('visibilitychange', () => { if (document.hidden) { stopTimeline(); cards.forEach(card => card.querySelector('video').pause()); } });
+document.addEventListener('visibilitychange', () => { syncTimeline(); if (document.hidden) cards.forEach(card => card.querySelector('video').pause()); });
 document.querySelector('#year').textContent = new Intl.NumberFormat('fa', {useGrouping: false}).format(new Date().getFullYear());
 
 // Run the two artwork loops only while visible and motion is allowed.
