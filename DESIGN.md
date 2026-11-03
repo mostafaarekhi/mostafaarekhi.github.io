@@ -132,3 +132,6 @@ Hero tile and orbit float gently; the About portrait and layer drift over an 8-s
 
 
 Contact closing title stays on one line with fluid 24–80px type. Contact buttons pair their existing labels with decorative Telegram, Instagram and WhatsApp SVG icons.
+
+Contact logos use Bootstrap Icons' Telegram, Instagram and WhatsApp SVGs (MIT), replacing the older thin illustrations.
+
