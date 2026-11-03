@@ -1,0 +1,100 @@
+[
+  {
+    "original": "assets/Usher-01.mp4",
+    "web": "assets/web/Usher-01.mp4",
+    "original_bytes": 3978511,
+    "web_bytes": 2524092,
+    "original_preserved": true
+  },
+  {
+    "original": "assets/Usher-03.mp4",
+    "web": "assets/web/Usher-03.mp4",
+    "original_bytes": 5339222,
+    "web_bytes": 2170620,
+    "original_preserved": true
+  },
+  {
+    "original": "assets/Usher-04.mp4",
+    "web": "assets/web/Usher-04.mp4",
+    "original_bytes": 3713979,
+    "web_bytes": 2157993,
+    "original_preserved": true
+  },
+  {
+    "original": "assets/Usher-09-2.mp4",
+    "web": "assets/web/Usher-09-2.mp4",
+    "original_bytes": 8795263,
+    "web_bytes": 5805327,
+    "original_preserved": true
+  },
+  {
+    "original": "assets/Usher-12.mp4",
+    "web": "assets/web/Usher-12.mp4",
+    "original_bytes": 3522684,
+    "web_bytes": 2663531,
+    "original_preserved": true
+  },
+  {
+    "original": "assets/Usher-13-2.mp4",
+    "web": "assets/web/Usher-13-2.mp4",
+    "original_bytes": 2672521,
+    "web_bytes": 1873902,
+    "original_preserved": true
+  },
+  {
+    "original": "assets/Usher-14.mp4",
+    "web": "assets/web/Usher-14.mp4",
+    "original_bytes": 13486801,
+    "web_bytes": 7018424,
+    "original_preserved": true
+  },
+  {
+    "original": "assets/Arkan-84.mp4",
+    "web": "assets/web/Arkan-84.mp4",
+    "original_bytes": 5694317,
+    "web_bytes": 3282202,
+    "original_preserved": true
+  },
+  {
+    "original": "assets/Arkan-88-2.mp4",
+    "web": "assets/web/Arkan-88-2.mp4",
+    "original_bytes": 6174434,
+    "web_bytes": 3886129,
+    "original_preserved": true
+  },
+  {
+    "original": "assets/Arkan-108-2.mp4",
+    "web": "assets/web/Arkan-108-2.mp4",
+    "original_bytes": 12816634,
+    "web_bytes": 6135069,
+    "original_preserved": true
+  },
+  {
+    "original": "assets/Arkan-116.mp4",
+    "web": "assets/web/Arkan-116.mp4",
+    "original_bytes": 7232271,
+    "web_bytes": 5867388,
+    "original_preserved": true
+  },
+  {
+    "original": "assets/Arkan-118.mp4",
+    "web": "assets/web/Arkan-118.mp4",
+    "original_bytes": 5427023,
+    "web_bytes": 3982843,
+    "original_preserved": true
+  },
+  {
+    "original": "assets/Arkan-120.mp4",
+    "web": "assets/web/Arkan-120.mp4",
+    "original_bytes": 4193094,
+    "web_bytes": 3974855,
+    "original_preserved": true
+  },
+  {
+    "original": "assets/Arkan-122.mp4",
+    "web": "assets/web/Arkan-122.mp4",
+    "original_bytes": 4432862,
+    "web_bytes": 3654038,
+    "original_preserved": true
+  }
+]
