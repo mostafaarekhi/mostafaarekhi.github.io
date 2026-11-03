@@ -27,6 +27,20 @@ scrubber.addEventListener('input', () => { position = Number(scrubber.value); re
 document.addEventListener('visibilitychange', () => { if (document.hidden) { stopTimeline(); cards.forEach(card => card.querySelector('video').pause()); } });
 document.querySelector('#year').textContent = new Intl.NumberFormat('fa', {useGrouping: false}).format(new Date().getFullYear());
 
+// Run the two artwork loops only while visible and motion is allowed.
+const loopPreference = matchMedia('(prefers-reduced-motion: reduce)');
+const loopVisibility = new Map();
+function syncArtworkLoops() {
+ loopVisibility.forEach((visible, artwork) => artwork.classList.toggle('is-looping', visible && !document.hidden && !loopPreference.matches));
+}
+const loopObserver = new IntersectionObserver(entries => {
+ entries.forEach(entry => loopVisibility.set(entry.target, entry.isIntersecting));
+ syncArtworkLoops();
+}, { threshold: 0 });
+document.querySelectorAll('.hero-art,.about-art').forEach(artwork => { loopVisibility.set(artwork, false); loopObserver.observe(artwork); });
+document.addEventListener('visibilitychange', syncArtworkLoops);
+loopPreference.addEventListener('change', syncArtworkLoops);
+
 // One entrance per element; only compositor-friendly opacity and transform.
 if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
  const revealObserver = new IntersectionObserver(entries => {
