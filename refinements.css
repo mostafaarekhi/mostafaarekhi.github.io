@@ -56,6 +56,19 @@ main,footer{margin-left:0}
 @media(max-width:640px){.hero{padding:25px 24px 30px;gap:0;min-height:0}.hero h1{font-size:clamp(33px,8.1vw,48px)}.hero-copy{padding-top:10px}.hero-art{margin:28px -16px -50px;transform:scale(.83);transform-origin:top center}.hero .tool-rail{display:none}.timeline-panel{margin:8px 14px 24px}.panel-section{margin-left:14px}.project-grid{grid-template-columns:1fr;max-width:340px;gap:24px}.project-media{aspect-ratio:9/16}.project-card{border-radius:13px}.about-section{margin:65px auto 75px;padding:0 28px;gap:38px;grid-template-columns:1fr}.about-art{min-height:400px;width:100%;max-width:360px;justify-self:center}.about-portrait{width:77%;max-width:280px}.about-portrait img{height:295px}.about-backplate{height:305px}.about-orbit{top:130px;left:5%;width:90%;height:150px}.about-layer{bottom:0;right:0;font-size:11px}.about-keyframes{top:0}.about-copy h2{font-size:31px}.service-list{grid-template-columns:1fr;gap:16px}.service-list>div,.service-list>div+div{padding:25px;min-height:0}.service-list h3{font-size:21px}.service-list p{font-size:14px;max-width:40ch}.app-icon{margin-bottom:22px}.services.panel-section{padding:18px 0}}
 @media(prefers-reduced-motion:reduce){.reveal{opacity:1;translate:none!important;transition:none!important}}
 
+/* Looping artwork: preserve the base rotations and animate composite layers. */
+.hero-art .ae-object{animation-play-state:paused}
+.hero-art .orbit{animation:orbit-breathe 9s ease-in-out infinite;animation-play-state:paused}
+.about-art .about-portrait{animation:portrait-drift 8s ease-in-out infinite;animation-play-state:paused}
+.about-art .about-layer{animation:layer-drift 8s ease-in-out -2s infinite;animation-play-state:paused}
+.about-art .portrait-photo:before{animation:portrait-light 8s ease-in-out infinite;animation-play-state:paused}
+.is-looping .ae-object,.is-looping .orbit,.is-looping .about-portrait,.is-looping .about-layer,.is-looping .portrait-photo:before{animation-play-state:running}
+@keyframes orbit-breathe{0%,100%{translate:0 0;opacity:.84}50%{translate:0 -5px;opacity:1}}
+@keyframes portrait-drift{0%,100%{translate:0 0;rotate:0deg}50%{translate:0 -10px;rotate:-1.2deg}}
+@keyframes layer-drift{0%,100%{translate:0 0}50%{translate:0 7px}}
+@keyframes portrait-light{0%,100%{opacity:.45}50%{opacity:1}}
+@media(prefers-reduced-motion:reduce){.hero-art .ae-object,.hero-art .orbit,.about-art .about-portrait,.about-art .about-layer,.about-art .portrait-photo:before{animation:none!important}}
+
 /* Full-size portrait; transparent padding is cropped by a dedicated photo stage. */
 .about-section{max-width:1480px;padding:35px 65px;gap:100px;margin:100px auto 120px;min-height:650px}
 .about-art{min-height:585px}
