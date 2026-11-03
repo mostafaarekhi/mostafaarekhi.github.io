@@ -184,3 +184,9 @@ main,footer{margin-left:0}
 .project-card.is-playing .video-toggle svg{transform:none}
 @media(prefers-reduced-motion:reduce){.project-media .video-toggle{transition:none}}
 .project-card.is-playing .video-toggle svg{stroke:currentColor;fill:none}
+
+.project-card.is-buffering .video-toggle{opacity:1;pointer-events:auto}
+.project-card.is-buffering .video-toggle svg{opacity:0}
+.project-card.is-buffering .video-toggle:after{content:'';position:absolute;inset:17px;border:2px solid #ffffff40;border-top-color:#fff;border-radius:50%;animation:video-buffer-spin .8s linear infinite}
+@keyframes video-buffer-spin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.project-card.is-buffering .video-toggle:after{animation:none}}

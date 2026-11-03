@@ -18,10 +18,28 @@ for (let i = shuffledCards.length - 1; i > 0; i--) {
 projectGrid.replaceChildren(...shuffledCards);
 const cards = shuffledCards;
 const feedback = document.querySelector('.video-feedback');
+const playbackPositions = new WeakMap();
+function releaseVideo(video) {
+ if (!video.getAttribute('src')) return;
+ playbackPositions.set(video, video.currentTime);
+ video.pause();
+ video.removeAttribute('src');
+ video.load();
+}
 cards.forEach(card => {
  const video = card.querySelector('video');
  const toggle = card.querySelector('.video-toggle');
  const label = video.getAttribute('aria-label');
+ const setBuffering = buffering => {
+  card.classList.toggle('is-buffering', buffering);
+  card.querySelector('.project-media').setAttribute('aria-busy', String(buffering));
+ };
+ video.addEventListener('loadedmetadata', () => {
+  const saved = playbackPositions.get(video) || 0;
+  if (saved > 0 && saved < video.duration - .1) video.currentTime = saved;
+ });
+ video.addEventListener('waiting', () => { if (!video.paused) setBuffering(true); });
+ ['playing','pause','ended','error'].forEach(event => video.addEventListener(event, () => setBuffering(false)));
  const syncPlayback = () => {
   card.classList.toggle('is-playing', !video.paused);
   toggle.setAttribute('aria-pressed', String(!video.paused));
@@ -30,8 +48,10 @@ cards.forEach(card => {
  };
  const togglePlayback = () => {
   if (!video.paused) { video.pause(); return; }
+  cards.forEach(other => { if (other !== card) releaseVideo(other.querySelector('video')); });
+  setBuffering(true);
   if (!video.getAttribute('src')) { video.preload = 'auto'; video.src = video.dataset.src; video.load(); }
-  video.play().catch(error => { if (error.name !== 'AbortError') feedback.textContent = 'پخش ویدیو ممکن نشد. دوباره تلاش کن.'; });
+  video.play().catch(error => { setBuffering(false); if (error.name !== 'AbortError') feedback.textContent = 'پخش ویدیو ممکن نشد. دوباره تلاش کن.'; });
  };
  toggle.addEventListener('click', togglePlayback);
  video.addEventListener('click', togglePlayback);
@@ -39,7 +59,7 @@ cards.forEach(card => {
  video.addEventListener('play', () => { feedback.textContent = ''; cards.forEach(other => { if (other !== card) other.querySelector('video').pause(); }); });
  video.addEventListener('error', () => { feedback.textContent = 'دریافت یکی از ویدیوها ممکن نشد. صفحه را دوباره بارگذاری کن.'; });
 });
-const mediaObserver = new IntersectionObserver(entries => { entries.forEach(entry => { if (!entry.isIntersecting) entry.target.pause(); }); });
+const mediaObserver = new IntersectionObserver(entries => { entries.forEach(entry => { if (!entry.isIntersecting) releaseVideo(entry.target); }); });
 cards.forEach(card => mediaObserver.observe(card.querySelector('video')));
 // Posters are independent; fetch video bytes only after a play request.
 
@@ -151,7 +171,7 @@ new IntersectionObserver(entries => {
 }).observe(document.querySelector('.timeline-panel'));
 timelineMotion.addEventListener('change', syncTimeline);
 scrubber.addEventListener('input', () => { position = Number(scrubber.value); renderTimeline(); });
-document.addEventListener('visibilitychange', () => { syncTimeline(); if (document.hidden) cards.forEach(card => card.querySelector('video').pause()); });
+document.addEventListener('visibilitychange', () => { syncTimeline(); if (document.hidden) cards.forEach(card => releaseVideo(card.querySelector('video'))); });
 document.querySelector('#year').textContent = new Intl.NumberFormat('fa', {useGrouping: false}).format(new Date().getFullYear());
 
 // Run the two artwork loops only while visible and motion is allowed.

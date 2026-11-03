@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-03T10:44:57.486Z",
+  "generatedAt": "2026-11-03T11:12:21.009Z",
   "title": "Design System: Mostafa Arekhi Portfolio",
   "extensions": {
     "colorMeta": {
@@ -177,6 +177,16 @@
       "format": "JPEG",
       "totalSize": "496KB",
       "purpose": "Show project previews before lazy video sources load."
+    },
+    "videoDelivery": {
+      "path": "assets/web/<basename>.mp4",
+      "count": 14,
+      "totalSize": "about 53.5MB",
+      "originalSize": "about 87.5MB",
+      "encoding": "Mostly 720×1280, 30fps H.264 CRF24, maximum video rate 650k, AAC64k, faststart. Arkan-122 preserves its low-bitrate video stream and re-encodes audio only.",
+      "originals": "Original assets remain unchanged; lossy web copies were user-approved.",
+      "loading": "On demand only. releaseVideo saves currentTime in a WeakMap, pauses, removes src and calls load for nonselected/offscreen/hidden media; loadedmetadata restores position.",
+      "waiting": "Central buffering spinner while waiting; static under reduced-motion preference."
     }
   },
   "components": [
@@ -214,7 +224,7 @@
       "name": "Project card",
       "kind": "card",
       "refersTo": "project-card",
-      "description": "Vertical 9:16 video with matching assets/posters/<basename>.jpg extracted at one second, 450px wide; all fourteen posters total 496KB. Central 64px play/pause button hides while playing, returns on pause/end and reveals pause on keyboard focus. Lazy source and exclusive playback; no video autoplay.",
+      "description": "Vertical 9:16 video with JPEG poster and central 64px play/pause button. Playback loads the approved assets/web copy only on demand. Nonselected/offscreen/hidden videos release src after saving time; loadedmetadata restores position. A central waiting spinner is static under reduced motion. No video autoplay.",
       "html": "<article class=\"ds-card\" aria-label=\"نمونه‌کار Usher-01\"><div class=\"ds-media\"><video class=\"ds-video\" playsinline preload=\"none\" aria-label=\"پخش نمونه‌کار Usher-01\"></video><button class=\"ds-toggle\" type=\"button\" aria-label=\"پخش نمونه‌کار Usher-01\" aria-pressed=\"false\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"m8 5 11 7-11 7Z\"/></svg></button></div></article>",
       "css": ".ds-card{overflow:hidden;border:1px solid #40344f;border-radius:15px;background:#08070e;transition:border-color .2s}.ds-card:hover{border-color:#9973ca}.ds-media{position:relative;aspect-ratio:9/16}.ds-video{display:block;width:100%;height:100%;object-fit:contain;background:#08070e}.ds-toggle{position:absolute;inset:0;margin:auto;z-index:5;width:64px;height:64px;border-radius:50%;border:1px solid #d4b2ff99;background:#21132cbb;color:#fff;display:grid;place-items:center;padding:0;box-shadow:0 6px 24px #0006;cursor:pointer;transition:opacity .18s,background .18s}.ds-toggle svg{width:25px;height:25px;fill:currentColor;stroke:none;transform:translateX(2px)}.ds-toggle:hover{background:#674195e6}.ds-playing .ds-toggle{opacity:0;pointer-events:none}.ds-playing .ds-toggle:focus-visible{opacity:1;pointer-events:auto}.ds-playing .ds-toggle svg{transform:none}.ds-toggle:focus-visible{outline:2px solid #c99cff;outline-offset:6px}@media(max-width:640px){.ds-card{border-radius:13px}}@media(prefers-reduced-motion:reduce){.ds-card,.ds-toggle{transition:none}}"
     },
