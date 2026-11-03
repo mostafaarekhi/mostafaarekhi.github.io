@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-03T07:42:28.537Z",
+  "generatedAt": "2026-11-03T07:50:32.247Z",
   "title": "Design System: Mostafa Arekhi Portfolio",
   "extensions": {
     "colorMeta": {
@@ -192,7 +192,7 @@
       "name": "Project card",
       "kind": "card",
       "refersTo": "project-card",
-      "description": "Vertical 9:16 video card used in the fourteen-project RTL snap carousel; native controls, lazy source, exclusive playback and no custom overlays.",
+      "description": "Vertical 9:16 video in the fourteen-project RTL snap carousel (max-width 1640px; four desktop, two tablet, one mobile). Drag the picture or rail; the bottom 64px remain native controls. Lazy source and exclusive playback; no custom overlays.",
       "html": "<article class=\"ds-card\" aria-label=\"نمونه‌کار Usher-01\"><video class=\"ds-video\" controls playsinline preload=\"none\" aria-label=\"پخش نمونه‌کار Usher-01\"></video></article>",
       "css": ".ds-card{overflow:hidden;border:1px solid #40344f;border-radius:15px;background:#08070e;transition:border-color .2s}.ds-card:hover{border-color:#9973ca}.ds-video{display:block;width:100%;aspect-ratio:9/16;object-fit:contain;background:#08070e}.ds-video:focus-visible{outline:2px solid #c99cff;outline-offset:-4px}@media(max-width:640px){.ds-card{border-radius:13px}}@media(prefers-reduced-motion:reduce){.ds-card{transition:none}}"
     },
@@ -206,8 +206,8 @@
     {
       "name": "Project slider controls",
       "kind": "custom",
-      "description": "Representative previous/next controls and Persian live range below the RTL carousel. Actual script updates range, disabled states and keyboard navigation.",
-      "html": "<div class=\"ds-slider-controls\" dir=\"rtl\"><button type=\"button\" disabled aria-label=\"نمونه‌کارهای قبلی\">قبلی</button><span class=\"ds-project-position\" role=\"status\" aria-live=\"polite\" aria-atomic=\"true\">۱ تا ۳ از ۱۴</span><button type=\"button\" aria-label=\"نمونه‌کارهای بعدی\">بعدی</button></div>",
+      "description": "Previous/next controls and Persian live range below the four-card desktop RTL carousel (two on tablet, one on mobile). Actual script supports mouse/touch drag with snap on release, reserves the video bottom 64px for native controls, and preserves vertical touch pan and pinch zoom.",
+      "html": "<div class=\"ds-slider-controls\" dir=\"rtl\"><button type=\"button\" disabled aria-label=\"نمونه‌کارهای قبلی\">قبلی</button><span class=\"ds-project-position\" role=\"status\" aria-live=\"polite\" aria-atomic=\"true\">۱ تا ۴ از ۱۴</span><button type=\"button\" aria-label=\"نمونه‌کارهای بعدی\">بعدی</button></div>",
       "css": ".ds-slider-controls{display:flex;align-items:center;justify-content:center;gap:30px;margin-top:22px;font-family:Vazirmatn,sans-serif}.ds-slider-controls button{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:46px;padding:8px 18px;background:#21172e;border:1px solid #71508e;border-radius:9px;color:#e0c7f5;font:14px Vazirmatn,sans-serif;cursor:pointer;transition:background .2s}.ds-slider-controls button:hover:not(:disabled){background:#573178}.ds-slider-controls button:disabled{opacity:.35;cursor:default}.ds-slider-controls button:focus-visible{outline:2px solid #c99cff;outline-offset:6px}.ds-project-position{min-width:130px;text-align:center;color:#c6aecf;font-size:13px;font-variant-numeric:tabular-nums}@media(max-width:640px){.ds-slider-controls{gap:12px;margin-top:17px}.ds-slider-controls button{padding:9px 12px;font-size:13px;gap:6px}.ds-project-position{min-width:85px;font-size:12px}}@media(prefers-reduced-motion:reduce){.ds-slider-controls button{transition:none}}"
     }
   ],

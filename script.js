@@ -61,6 +61,45 @@ function moveProjects(index) {
 }
 previousProjects.addEventListener('click', () => moveProjects(activeProject - projectsPerView));
 nextProjects.addEventListener('click', () => moveProjects(activeProject + projectsPerView));
+// Drag the video picture or rail; leave the native control strip interactive.
+let projectDrag = null, suppressProjectClickUntil = 0;
+projectGrid.addEventListener('pointerdown', event => {
+ if (!event.isPrimary || event.button !== 0 || event.target.closest('button,a,input,select')) return;
+ const video = event.target.closest('video');
+ if (video && event.clientY > video.getBoundingClientRect().bottom - 64) return;
+ projectDrag = { id: event.pointerId, x: event.clientX, y: event.clientY, left: projectGrid.scrollLeft, moved: false };
+}, { capture: true });
+projectGrid.addEventListener('pointermove', event => {
+ if (!projectDrag || projectDrag.id !== event.pointerId) return;
+ const dx = event.clientX - projectDrag.x, dy = event.clientY - projectDrag.y;
+ if (!projectDrag.moved) {
+  if (Math.abs(dy) > 8 && Math.abs(dy) > Math.abs(dx)) { projectDrag = null; return; }
+  if (Math.abs(dx) < 8) return;
+  projectDrag.moved = true;
+  projectGrid.classList.add('is-dragging');
+  projectGrid.setPointerCapture(event.pointerId);
+ }
+ event.preventDefault();
+ projectGrid.scrollLeft = projectDrag.left - dx;
+}, { passive: false });
+function finishProjectDrag(event) {
+ if (!projectDrag || projectDrag.id !== event.pointerId) return;
+ const moved = projectDrag.moved;
+ projectDrag = null;
+ projectGrid.classList.remove('is-dragging');
+ if (projectGrid.hasPointerCapture(event.pointerId)) projectGrid.releasePointerCapture(event.pointerId);
+ if (moved) {
+  suppressProjectClickUntil = performance.now() + 350;
+  const step = cards[0].getBoundingClientRect().width + (parseFloat(getComputedStyle(projectGrid).columnGap) || 0);
+  moveProjects(Math.round(Math.abs(projectGrid.scrollLeft) / step));
+ }
+}
+projectGrid.addEventListener('pointerup', finishProjectDrag);
+projectGrid.addEventListener('pointercancel', finishProjectDrag);
+projectGrid.addEventListener('lostpointercapture', finishProjectDrag);
+projectGrid.addEventListener('click', event => {
+ if (performance.now() < suppressProjectClickUntil) { event.preventDefault(); event.stopImmediatePropagation(); }
+}, { capture: true });
 projectGrid.addEventListener('keydown', event => {
  if (event.target !== projectGrid) return;
  if (event.key === 'ArrowLeft') { event.preventDefault(); moveProjects(activeProject + 1); }
