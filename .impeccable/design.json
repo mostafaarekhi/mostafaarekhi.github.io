@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-03T06:40:13.848Z",
+  "generatedAt": "2026-11-03T06:51:38.275Z",
   "title": "Design System: Mostafa Arekhi Portfolio",
   "extensions": {
     "colorMeta": {
@@ -121,6 +121,11 @@
         "name": "hero-float",
         "value": "7s ease-in-out infinite",
         "purpose": "Decorative object motion; disabled with reduced-motion CSS."
+      },
+      {
+        "name": "one-shot-entrance",
+        "value": "opacity .65s cubic-bezier(.16,1,.3,1), translate .65s cubic-bezier(.16,1,.3,1)",
+        "purpose": "IntersectionObserver reveals from opacity 0 and translate 0 22px once, then unobserves. Second/third project and service cards delay 70/140ms. Setup skipped for reduced motion."
       }
     ],
     "breakpoints": [
@@ -177,9 +182,16 @@
       "name": "Project card",
       "kind": "card",
       "refersTo": "project-card",
-      "description": "Representative preview frame and metadata. Production cards embed the existing videos.",
-      "html": "<article class=\"ds-card\" dir=\"rtl\"><div class=\"ds-media\"><span class=\"ds-badge\">Pr</span><button class=\"ds-play\" aria-label=\"پخش نمونه‌کار\"><svg viewBox=\"0 0 24 24\" width=\"22\" height=\"22\" aria-hidden=\"true\"><path fill=\"currentColor\" d=\"m8 5 11 7-11 7Z\"/></svg></button></div><div class=\"ds-meta\"><p>شبکه‌های اجتماعی</p><h3>روایت در هر کات</h3></div></article>",
-      "css": ".ds-card{overflow:hidden;border:1px solid #40344f;border-radius:17px;background:#15111e;color:var(--text,#f5f4fa);font-family:Vazirmatn,sans-serif;transition:transform .25s,border-color .25s}.ds-card:hover{transform:translateY(-5px);border-color:#9973ca}.ds-media{position:relative;aspect-ratio:1.65;background:radial-gradient(ellipse at 50% 70%,#4d217b,#170d2b 70%)}.ds-badge{position:absolute;top:12px;right:12px;display:grid;place-items:center;width:30px;height:30px;border:1px solid #ab6fe0;border-radius:5px;background:#17072e;color:#bf8afa;font:20px Arial,sans-serif}.ds-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:grid;place-items:center;width:51px;height:51px;border:1px solid #b399d370;border-radius:50%;background:#1c102dcc;color:#eee1ff;cursor:pointer}.ds-play:hover{background:#7645bc}.ds-play:focus-visible{outline:2px solid #c99cff;outline-offset:6px}.ds-meta{padding:15px 18px}.ds-meta p{font-size:11px;color:#ac99bf;margin:0 0 4px}.ds-meta h3{font-size:16px;font-weight:500;margin:0}@media(prefers-reduced-motion:reduce){.ds-card{transition:none}}"
+      "description": "Vertical 9:16 video with native controls and border-only hover. No custom overlays or captions.",
+      "html": "<article class=\"ds-card\"><video class=\"ds-video\" controls playsinline preload=\"metadata\" aria-label=\"نمونه تدوین آرکان ۷۸\"></video></article>",
+      "css": ".ds-card{overflow:hidden;border:1px solid #40344f;border-radius:15px;background:#08070e;transition:border-color .2s}.ds-card:hover{border-color:#9973ca}.ds-video{display:block;width:100%;aspect-ratio:9/16;object-fit:contain;background:#08070e}.ds-video:focus-visible{outline:2px solid #c99cff;outline-offset:-4px}@media(max-width:640px){.ds-card{border-radius:13px}}@media(prefers-reduced-motion:reduce){.ds-card{transition:none}}"
+    },
+    {
+      "name": "Service card",
+      "kind": "card",
+      "description": "Representative Ae service card; Premiere uses plum and Photoshop blue-black variants.",
+      "html": "<article class=\"ds-service\" dir=\"rtl\"><span class=\"ds-service-icon\">Ae</span><h3>موشن گرافیک</h3><p>جان دادن به متن‌ها و عناصر تصویری برای انتقال روشن‌تر ایده‌ها.</p></article>",
+      "css": ".ds-service{position:relative;padding:28px;min-height:235px;border:1px solid #62417b;border-radius:15px;background:linear-gradient(140deg,#29193d,#161220 75%);overflow:hidden;color:var(--text,#f5f4fa);font-family:Vazirmatn,sans-serif}.ds-service-icon{display:grid;place-items:center;width:48px;height:48px;font:600 30px/1 Arial,sans-serif;margin:0 0 24px auto;border:1px solid currentColor;border-radius:10px;color:#b28aff;background:#10052e}.ds-service h3{font-size:21px;font-weight:500;margin:0 0 12px}.ds-service p{font-size:14px;line-height:2;color:var(--muted,#acaabe);max-width:36ch;margin:0}.ds-service:after{content:\"\";position:absolute;width:95px;height:95px;border:1px solid #8a619330;border-radius:22px;left:-36px;top:-36px;transform:rotate(24deg);pointer-events:none}"
     }
   ],
   "narrative": {
@@ -202,11 +214,11 @@
       "Do preserve Persian reading order and explicit LTR filenames, marks and timecodes.",
       "Do keep real videos, the portrait and existing contact destinations as the content anchors.",
       "Do retain visible keyboard focus, labeled controls and reduced-motion CSS behavior.",
-      "Do concentrate dimensional neon effects in the hero artwork."
+      "Do keep the strongest dimensional neon effects in the hero and echo editor geometry in the portrait."
     ],
     "donts": [
       "Don't turn decorative window chrome, tool icons or selection handles into apparent working controls.",
-      "Don't replace native video playback with a decorative-only player.",
+      "Don't add custom playback overlays, badges or captions over the vertical project videos.",
       "Don't flatten the mobile layout into a scaled desktop canvas."
     ]
   }
