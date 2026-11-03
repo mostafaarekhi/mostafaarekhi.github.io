@@ -62,7 +62,7 @@ The interface combines dense editor details with open space around the introduct
 - Dark editor panels with quiet violet borders.
 - Persian hierarchy with deliberate LTR islands for filenames, software marks and time.
 - Neon depth concentrated in the Ae illustration.
-- Real video previews with native playback controls.
+- Real video previews with a central play/pause control.
 
 ## Colors
 
@@ -106,9 +106,9 @@ Softly rounded buttons, panels, project cards and software tiles follow the fron
 Primary actions have a violet gradient, inset highlight and subtle outer shadow. Secondary actions have a transparent surface and muted border. Both align icon and label inline, have a minimum wide-screen height of 51px, lift on hover and retain global keyboard focus. Header links use a bottom accent for hover/active state; on mobile it becomes a vertical rule. The menu exposes expanded state and closes on link selection, Escape or a click outside the header.
 
 ### Project slider and video card
-The fourteen uploaded Usher/Arkan videos form an RTL native scroll-snap carousel. Fisher–Yates randomizes the complete list once per page load without duplicates; the former three-video selection is no longer displayed. Previous/next buttons, mouse/touch dragging, swipe, keyboard arrows and Home/End navigate. Dragging the picture or rail uses a grab cursor and temporarily disables snap; releasing snaps to the nearest card. The bottom 64px of each video remain reserved for native controls, and vertical touch panning and pinch zoom remain available. A Persian live position label reports the visible range and boundary buttons disable at the ends. ArrowLeft advances and ArrowRight returns when the carousel itself has focus; native video keyboard controls remain independent. Motion preferences switch navigation between smooth and instant scrolling. No autoplay or slider dependency is used.
+The fourteen uploaded Usher/Arkan videos form an RTL native scroll-snap carousel. Fisher–Yates randomizes the complete list once per page load without duplicates; the former three-video selection is no longer displayed. Previous/next buttons, mouse/touch dragging, swipe, keyboard arrows and Home/End navigate. Dragging the picture or rail uses a grab cursor and temporarily disables snap; releasing snaps to the nearest card. Vertical touch panning and pinch zoom remain available. The full picture can be dragged; there is no bottom control-strip exclusion. Dragging suppresses the subsequent click so it cannot accidentally toggle playback. A Persian live position label reports the visible range and boundary buttons disable at the ends. ArrowLeft advances and ArrowRight returns when the carousel itself has focus; each playback button remains independently keyboard accessible. Motion preferences switch navigation between smooth and instant scrolling. No autoplay or slider dependency is used.
 
-Cards contain only vertical 9:16 videos with native controls present from the start. There are no custom play overlays, badges or visible captions. Video uses contain against a near-black background. Hover only brightens the border. Sources begin as lazy data-src values with preload none and load near the viewport (180px vertical and 100px horizontal observer margins). Playing one video pauses the others; videos pause when offscreen or when the document is hidden. A shared live status region reports loading failures, and each video keeps its descriptive accessible label.
+Cards contain vertical 9:16 videos and a central 64px circular play/pause button, as explicitly requested. Native video controls are absent. The button has a translucent dark-purple surface, pale border, white 25px icon and soft shadow. It hides during playback and returns on pause or end; keyboard focus reveals the pause control while playing. Clicking the picture also toggles playback. Play/pause/end events synchronize its icon, accessible label and aria-pressed state. There are no badges or visible captions. Video uses contain against a near-black background. Hover only brightens the border. Sources begin as lazy data-src values with preload none and load near the viewport (180px vertical and 100px horizontal observer margins). Playing one video pauses the others; videos pause when offscreen or when the document is hidden. A shared live status region reports loading failures, and each video keeps its descriptive accessible label.
 
 ### Skills timeline
 Four labeled layers align with colored clips, diamond keyframes and a playhead. A transparent native range input supports pointer/keyboard scrubbing; focus outlines the track container. Play/pause advances a seven-second, 30fps decorative timeline and updates the hero timecode. It does not control project videos. Playback stops at the end and when the document becomes hidden.
@@ -126,7 +126,7 @@ Ae/Pr/Ps letter marks sit on tinted dark tiles. Services are separate 16px-radiu
 
 ### Don't:
 - Don't turn decorative window chrome, tool icons or selection handles into apparent working controls.
-- Don't add custom playback overlays, badges or captions over the vertical project videos.
+- Don't add playback chrome beyond the central play/pause button, or badges and captions over the vertical project videos.
 - Don't flatten the mobile layout into a scaled desktop canvas.
 
 ## Artwork loops

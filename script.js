@@ -20,6 +20,22 @@ const cards = shuffledCards;
 const feedback = document.querySelector('.video-feedback');
 cards.forEach(card => {
  const video = card.querySelector('video');
+ const toggle = card.querySelector('.video-toggle');
+ const label = video.getAttribute('aria-label');
+ const syncPlayback = () => {
+  card.classList.toggle('is-playing', !video.paused);
+  toggle.setAttribute('aria-pressed', String(!video.paused));
+  toggle.setAttribute('aria-label', video.paused ? label : label.replace('پخش', 'توقف'));
+  toggle.querySelector('use').setAttribute('href', video.paused ? '#play' : '#pause');
+ };
+ const togglePlayback = () => {
+  if (!video.paused) { video.pause(); return; }
+  if (!video.getAttribute('src')) { video.src = video.dataset.src; video.load(); }
+  video.play().catch(() => { feedback.textContent = 'پخش ویدیو ممکن نشد. دوباره تلاش کن.'; });
+ };
+ toggle.addEventListener('click', togglePlayback);
+ video.addEventListener('click', togglePlayback);
+ ['play','pause','ended'].forEach(event => video.addEventListener(event, syncPlayback));
  video.addEventListener('play', () => { feedback.textContent = ''; cards.forEach(other => { if (other !== card) other.querySelector('video').pause(); }); });
  video.addEventListener('error', () => { feedback.textContent = 'دریافت یکی از ویدیوها ممکن نشد. صفحه را دوباره بارگذاری کن.'; });
 });
@@ -61,12 +77,10 @@ function moveProjects(index) {
 }
 previousProjects.addEventListener('click', () => moveProjects(activeProject - projectsPerView));
 nextProjects.addEventListener('click', () => moveProjects(activeProject + projectsPerView));
-// Drag the video picture or rail; leave the native control strip interactive.
+// Drag the video picture or rail; a click toggles playback.
 let projectDrag = null, suppressProjectClickUntil = 0;
 projectGrid.addEventListener('pointerdown', event => {
  if (!event.isPrimary || event.button !== 0 || event.target.closest('button,a,input,select')) return;
- const video = event.target.closest('video');
- if (video && event.clientY > video.getBoundingClientRect().bottom - 64) return;
  projectDrag = { id: event.pointerId, x: event.clientX, y: event.clientY, left: projectGrid.scrollLeft, moved: false };
 }, { capture: true });
 projectGrid.addEventListener('pointermove', event => {

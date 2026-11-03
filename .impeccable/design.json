@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-03T07:55:00.138Z",
+  "generatedAt": "2026-11-03T08:00:39.595Z",
   "title": "Design System: Mostafa Arekhi Portfolio",
   "extensions": {
     "colorMeta": {
@@ -200,9 +200,9 @@
       "name": "Project card",
       "kind": "card",
       "refersTo": "project-card",
-      "description": "Vertical 9:16 video in the fourteen-project RTL snap carousel (max-width 1640px; four desktop, two tablet, one mobile). Drag the picture or rail; the bottom 64px remain native controls. Lazy source and exclusive playback; no custom overlays.",
-      "html": "<article class=\"ds-card\" aria-label=\"نمونه‌کار Usher-01\"><video class=\"ds-video\" controls playsinline preload=\"none\" aria-label=\"پخش نمونه‌کار Usher-01\"></video></article>",
-      "css": ".ds-card{overflow:hidden;border:1px solid #40344f;border-radius:15px;background:#08070e;transition:border-color .2s}.ds-card:hover{border-color:#9973ca}.ds-video{display:block;width:100%;aspect-ratio:9/16;object-fit:contain;background:#08070e}.ds-video:focus-visible{outline:2px solid #c99cff;outline-offset:-4px}@media(max-width:640px){.ds-card{border-radius:13px}}@media(prefers-reduced-motion:reduce){.ds-card{transition:none}}"
+      "description": "Vertical 9:16 video with a central 64px play/pause button. Native controls are absent. Button hides while playing, returns on pause/end and reveals a pause control on keyboard focus. Source remains lazy and playback exclusive.",
+      "html": "<article class=\"ds-card\" aria-label=\"نمونه‌کار Usher-01\"><div class=\"ds-media\"><video class=\"ds-video\" playsinline preload=\"none\" aria-label=\"پخش نمونه‌کار Usher-01\"></video><button class=\"ds-toggle\" type=\"button\" aria-label=\"پخش نمونه‌کار Usher-01\" aria-pressed=\"false\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"m8 5 11 7-11 7Z\"/></svg></button></div></article>",
+      "css": ".ds-card{overflow:hidden;border:1px solid #40344f;border-radius:15px;background:#08070e;transition:border-color .2s}.ds-card:hover{border-color:#9973ca}.ds-media{position:relative;aspect-ratio:9/16}.ds-video{display:block;width:100%;height:100%;object-fit:contain;background:#08070e}.ds-toggle{position:absolute;inset:0;margin:auto;z-index:5;width:64px;height:64px;border-radius:50%;border:1px solid #d4b2ff99;background:#21132cbb;color:#fff;display:grid;place-items:center;padding:0;box-shadow:0 6px 24px #0006;cursor:pointer;transition:opacity .18s,background .18s}.ds-toggle svg{width:25px;height:25px;fill:currentColor;stroke:none;transform:translateX(2px)}.ds-toggle:hover{background:#674195e6}.ds-playing .ds-toggle{opacity:0;pointer-events:none}.ds-playing .ds-toggle:focus-visible{opacity:1;pointer-events:auto}.ds-playing .ds-toggle svg{transform:none}.ds-toggle:focus-visible{outline:2px solid #c99cff;outline-offset:6px}@media(max-width:640px){.ds-card{border-radius:13px}}@media(prefers-reduced-motion:reduce){.ds-card,.ds-toggle{transition:none}}"
     },
     {
       "name": "Service card",
@@ -214,7 +214,7 @@
     {
       "name": "Project slider controls",
       "kind": "custom",
-      "description": "Previous/next controls and Persian live range below the four-card desktop RTL carousel (two on tablet, one on mobile). Actual script supports mouse/touch drag with snap on release, reserves the video bottom 64px for native controls, and preserves vertical touch pan and pinch zoom.",
+      "description": "Previous/next controls and Persian live range below the four-card desktop RTL carousel (two on tablet, one on mobile). Actual script supports mouse/touch drag with snap on release, suppresses clicks after a drag, and preserves vertical touch pan and pinch zoom. No bottom control-strip exclusion.",
       "html": "<div class=\"ds-slider-controls\" dir=\"rtl\"><button type=\"button\" disabled aria-label=\"نمونه‌کارهای قبلی\">قبلی</button><span class=\"ds-project-position\" role=\"status\" aria-live=\"polite\" aria-atomic=\"true\">۱ تا ۴ از ۱۴</span><button type=\"button\" aria-label=\"نمونه‌کارهای بعدی\">بعدی</button></div>",
       "css": ".ds-slider-controls{display:flex;align-items:center;justify-content:center;gap:30px;margin-top:22px;font-family:Vazirmatn,sans-serif}.ds-slider-controls button{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:46px;padding:8px 18px;background:#21172e;border:1px solid #71508e;border-radius:9px;color:#e0c7f5;font:14px Vazirmatn,sans-serif;cursor:pointer;transition:background .2s}.ds-slider-controls button:hover:not(:disabled){background:#573178}.ds-slider-controls button:disabled{opacity:.35;cursor:default}.ds-slider-controls button:focus-visible{outline:2px solid #c99cff;outline-offset:6px}.ds-project-position{min-width:130px;text-align:center;color:#c6aecf;font-size:13px;font-variant-numeric:tabular-nums}@media(max-width:640px){.ds-slider-controls{gap:12px;margin-top:17px}.ds-slider-controls button{padding:9px 12px;font-size:13px;gap:6px}.ds-project-position{min-width:85px;font-size:12px}}@media(prefers-reduced-motion:reduce){.ds-slider-controls button{transition:none}}"
     }
@@ -226,7 +226,7 @@
       "Dark editor panels with quiet violet borders.",
       "Persian hierarchy with deliberate LTR islands for filenames, software marks and time.",
       "Neon depth concentrated in the Ae illustration.",
-      "Real video previews with native playback controls."
+      "Real video previews with a central play/pause control."
     ],
     "rules": [
       {
@@ -243,7 +243,7 @@
     ],
     "donts": [
       "Don't turn decorative window chrome, tool icons or selection handles into apparent working controls.",
-      "Don't add custom playback overlays, badges or captions over the vertical project videos.",
+      "Don't add playback chrome beyond the central play/pause button, or badges and captions over the vertical project videos.",
       "Don't flatten the mobile layout into a scaled desktop canvas."
     ]
   }

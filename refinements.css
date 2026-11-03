@@ -174,3 +174,13 @@ main,footer{margin-left:0}
  .hero-scene{position:absolute;left:50%;top:50%;width:520px;height:465px;transform:translate(-50%,-50%) scale(var(--hero-scene-scale,.7));transform-origin:center;isolation:isolate}
 }
 @media(max-width:640px){.hero-scene{display:contents}}
+
+/* A single central playback control; the picture stays clear while playing. */
+.project-media .video-toggle{position:absolute;inset:0;margin:auto;z-index:5;width:64px;height:64px;border-radius:50%;border:1px solid #d4b2ff99;background:#21132cbb;color:#fff;display:grid;place-items:center;padding:0;box-shadow:0 6px 24px #0006;cursor:pointer;transition:opacity .18s,background .18s}
+.video-toggle svg{width:25px;height:25px;fill:currentColor;stroke:none;transform:translateX(2px)}
+.video-toggle:hover{background:#674195e6}
+.project-card.is-playing .video-toggle{opacity:0;pointer-events:none}
+.project-card.is-playing .video-toggle:focus-visible{opacity:1;pointer-events:auto}
+.project-card.is-playing .video-toggle svg{transform:none}
+@media(prefers-reduced-motion:reduce){.project-media .video-toggle{transition:none}}
+.project-card.is-playing .video-toggle svg{stroke:currentColor;fill:none}
