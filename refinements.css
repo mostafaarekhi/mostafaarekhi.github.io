@@ -147,3 +147,17 @@ main,footer{margin-left:0}
 .contact-label{display:inline-flex;align-items:center;gap:12px}
 .contact-label img{display:block;width:26px;height:26px;object-fit:contain;filter:invert(1)}
 @media(max-width:640px){.contact-label{gap:11px}.contact-label img{width:24px;height:24px}}
+
+/* Native RTL snap slider: three portrait videos on desktop, one on mobile. */
+.project-slider{max-width:1180px;margin-inline:auto;min-width:0}
+.project-grid{display:flex;direction:rtl;max-width:none;width:100%;gap:26px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;overscroll-behavior-inline:contain;scrollbar-width:thin;scrollbar-color:#6e4a8e #171220;padding:5px 2px 18px;scroll-padding-inline:2px}
+.project-grid .project-card{flex:0 0 calc((100% - 52px)/3);min-width:0;scroll-snap-align:start;scroll-snap-stop:always}
+.project-grid .project-media{aspect-ratio:9/16}
+.slider-controls{display:flex;align-items:center;justify-content:center;gap:30px;margin-top:22px;direction:rtl}
+.slider-controls button{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:46px;padding:8px 18px;background:#21172e;border:1px solid #71508e;border-radius:9px;color:#e0c7f5;font-size:14px;transition:background .2s}
+.slider-controls button:hover:not(:disabled){background:#573178}
+.slider-controls button:disabled{opacity:.35;cursor:default}
+.slider-controls svg{width:20px;height:20px}.project-prev svg{transform:rotate(180deg)}
+.project-position{min-width:130px;text-align:center;color:#c6aecf;font-size:13px;font-variant-numeric:tabular-nums}
+@media(max-width:900px) and (min-width:641px){.project-grid .project-card{flex-basis:calc((100% - 26px)/2)}}
+@media(max-width:640px){.project-grid{max-width:none;gap:18px}.project-grid .project-card{flex-basis:100%}.slider-controls{gap:12px;margin-top:17px}.slider-controls button{padding:9px 12px;font-size:13px;gap:6px}.project-position{min-width:85px;font-size:12px}}

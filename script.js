@@ -8,7 +8,15 @@ document.addEventListener('click', event => { if (!event.target.closest('.app-he
 const navLinks = [...navigation.querySelectorAll('a')];
 const sectionObserver = new IntersectionObserver(entries => { entries.forEach(entry => { if (entry.isIntersecting) navLinks.forEach(link => link.classList.toggle('active', link.hash === '#' + entry.target.id)); }); }, { rootMargin: '-15% 0px -55% 0px' });
 navLinks.forEach(link => { const section = document.querySelector(link.hash); if (section) sectionObserver.observe(section); });
-const cards = [...document.querySelectorAll('.project-card')];
+const projectGrid = document.querySelector('.project-grid');
+const shuffledCards = [...projectGrid.querySelectorAll('.project-card')];
+// Fisher–Yates: a fresh permutation, with each project included exactly once.
+for (let i = shuffledCards.length - 1; i > 0; i--) {
+ const j = Math.floor(Math.random() * (i + 1));
+ [shuffledCards[i], shuffledCards[j]] = [shuffledCards[j], shuffledCards[i]];
+}
+projectGrid.replaceChildren(...shuffledCards);
+const cards = shuffledCards;
 const feedback = document.querySelector('.video-feedback');
 cards.forEach(card => {
  const video = card.querySelector('video');
@@ -17,6 +25,56 @@ cards.forEach(card => {
 });
 const mediaObserver = new IntersectionObserver(entries => { entries.forEach(entry => { if (!entry.isIntersecting) entry.target.pause(); }); });
 cards.forEach(card => mediaObserver.observe(card.querySelector('video')));
+const lazyVideoObserver = new IntersectionObserver(entries => {
+ entries.forEach(entry => {
+  if (!entry.isIntersecting) return;
+  const video = entry.target;
+  video.preload = 'metadata';
+  video.src = video.dataset.src;
+  video.load();
+  lazyVideoObserver.unobserve(video);
+ });
+}, { rootMargin: '180px 100px' });
+cards.forEach(card => lazyVideoObserver.observe(card.querySelector('video')));
+
+const previousProjects = document.querySelector('.project-prev');
+const nextProjects = document.querySelector('.project-next');
+const projectPosition = document.querySelector('.project-position');
+const numberFa = new Intl.NumberFormat('fa');
+let activeProject = 0, projectsPerView = 1, sliderFrame = null;
+function updateProjectSlider() {
+ const gap = parseFloat(getComputedStyle(projectGrid).columnGap) || 0;
+ const step = cards[0].getBoundingClientRect().width + gap;
+ projectsPerView = Math.max(1, Math.round((projectGrid.clientWidth + gap) / step));
+ activeProject = Math.min(cards.length - projectsPerView, Math.max(0, Math.round(Math.abs(projectGrid.scrollLeft) / step)));
+ previousProjects.disabled = activeProject === 0;
+ nextProjects.disabled = activeProject >= cards.length - projectsPerView;
+ const end = Math.min(cards.length, activeProject + projectsPerView);
+ projectPosition.textContent = projectsPerView === 1
+  ? numberFa.format(activeProject + 1) + ' از ' + numberFa.format(cards.length)
+  : numberFa.format(activeProject + 1) + ' تا ' + numberFa.format(end) + ' از ' + numberFa.format(cards.length);
+}
+function moveProjects(index) {
+ const target = Math.max(0, Math.min(cards.length - projectsPerView, index));
+ const step = cards[0].getBoundingClientRect().width + (parseFloat(getComputedStyle(projectGrid).columnGap) || 0);
+ projectGrid.scrollTo({ left: -target * step, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
+}
+previousProjects.addEventListener('click', () => moveProjects(activeProject - projectsPerView));
+nextProjects.addEventListener('click', () => moveProjects(activeProject + projectsPerView));
+projectGrid.addEventListener('keydown', event => {
+ if (event.target !== projectGrid) return;
+ if (event.key === 'ArrowLeft') { event.preventDefault(); moveProjects(activeProject + 1); }
+ if (event.key === 'ArrowRight') { event.preventDefault(); moveProjects(activeProject - 1); }
+ if (event.key === 'Home') { event.preventDefault(); moveProjects(0); }
+ if (event.key === 'End') { event.preventDefault(); moveProjects(cards.length - projectsPerView); }
+});
+projectGrid.addEventListener('scroll', () => {
+ if (sliderFrame !== null) return;
+ sliderFrame = requestAnimationFrame(() => { sliderFrame = null; updateProjectSlider(); });
+}, { passive: true });
+new ResizeObserver(updateProjectSlider).observe(projectGrid);
+updateProjectSlider();
+
 const scrubber = document.querySelector('.timeline-scrubber'), playhead = document.querySelector('.playhead'), timelineButton = document.querySelector('.timeline-play'), timecode = document.querySelector('#art-timecode');
 let animationFrame = null, previousTime = 0, position = Number(scrubber.value);
 function renderTimeline() { playhead.style.setProperty('--position', `${position / 210 * 100}%`); timecode.textContent = `00:00:${String(Math.floor(position / 30)).padStart(2, '0')}:${String(Math.floor(position % 30)).padStart(2, '0')}`; scrubber.value = position; }

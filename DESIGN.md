@@ -31,7 +31,7 @@ rounded:
   project: "15px"
 spacing:
   actions: "18px"
-  project-gap: "30px"
+  project-gap: "26px"
   mobile-inset: "14px"
 components:
   button-primary:
@@ -86,11 +86,11 @@ The hero uses the display token on wide screens. At the 1200px and 900px breakpo
 
 ## Layout
 
-The document and hero grid are Persian RTL. Header chrome, hero artwork, timeline ruler and project grid retain LTR containers with RTL copy inside where needed. Preserve these explicit direction boundaries.
+The document and hero grid are Persian RTL. Header chrome, hero artwork and timeline ruler retain LTR containers with RTL copy inside where needed; the project carousel follows RTL. Preserve these explicit direction boundaries.
 
-The sticky header is 76px tall. The decorative left tool rail is a descendant of the hero, confined between its top and bottom insets; main content and footer have no left offset. The hero has a maximum width of 1530px and two columns: copy right, artwork left. The timeline uses a 35% layer list and 65% track area. Projects form three columns inside a centered 1050px maximum width; three separate service cards align alongside one another. Portrait artwork and biography form two equal columns inside a 1480px maximum width with a 650px section minimum height. The portrait frame grows to a 440px maximum width. Services and contact also use a 1480px maximum width; contact has a 660px minimum height and a broad centered invitation.
+The sticky header is 76px tall. The decorative left tool rail is a descendant of the hero, confined between its top and bottom insets; main content and footer have no left offset. The hero has a maximum width of 1530px and two columns: copy right, artwork left. The timeline uses a 35% layer list and 65% track area. Projects form an RTL native scroll-snap carousel inside a centered 1180px maximum width, with three portrait videos visible on desktop; three separate service cards align alongside one another. Portrait artwork and biography form two equal columns inside a 1480px maximum width with a 650px section minimum height. The portrait frame grows to a 440px maximum width. Services and contact also use a 1480px maximum width; contact has a 660px minimum height and a broad centered invitation.
 
-Responsive rules are at 1600px minimum and 1200px, 900px and 640px maximum. At 900px the rail narrows and services become a single list up to 680px wide; each card places its visual and text side by side at 45%/55%. At 640px the header becomes 67px tall, the rail disappears, navigation opens vertically, and hero, projects, biography and services stack. Projects have a 340px maximum width. Panels use the mobile inset token. Service visuals return above their text; contact links form a vertical grid up to 340px wide. The portrait frame retains 88% width with a 330px maximum. The timeline stays two columns at 43%/57%, with smaller labels and fewer visible ruler labels.
+Responsive rules are at 1600px minimum and 1200px, 900px and 640px maximum. At 900px the project carousel shows two videos, the rail narrows and services become a single list up to 680px wide; each card places its visual and text side by side at 45%/55%. At 640px the header becomes 67px tall, the rail disappears, navigation opens vertically, and hero, biography and services stack. The carousel shows one full-width card at a time, retaining horizontal navigation with an 18px gap. Panels use the mobile inset token. Service visuals return above their text; contact links form a vertical grid up to 340px wide. The portrait frame retains 88% width with a 330px maximum. The timeline stays two columns at 43%/57%, with smaller labels and fewer visible ruler labels.
 
 ## Elevation & Depth
 
@@ -105,8 +105,10 @@ Softly rounded buttons, panels, project cards and software tiles follow the fron
 ### Actions and navigation
 Primary actions have a violet gradient, inset highlight and subtle outer shadow. Secondary actions have a transparent surface and muted border. Both align icon and label inline, have a minimum wide-screen height of 51px, lift on hover and retain global keyboard focus. Header links use a bottom accent for hover/active state; on mobile it becomes a vertical rule. The menu exposes expanded state and closes on link selection, Escape or a click outside the header.
 
-### Video project card
-Cards contain only vertical 9:16 videos with native controls present from the start. There are no custom play overlays, badges or visible captions. Video uses contain against a near-black background. Hover only brightens the border. Playing one video pauses the others; videos pause when offscreen or when the document is hidden. A shared live status region reports loading failures, and each video keeps its descriptive accessible label.
+### Project slider and video card
+The fourteen uploaded Usher/Arkan videos form an RTL native scroll-snap carousel. Fisher–Yates randomizes the complete list once per page load without duplicates; the former three-video selection is no longer displayed. Previous/next buttons, swipe, keyboard arrows and Home/End navigate. A Persian live position label reports the visible range and boundary buttons disable at the ends. ArrowLeft advances and ArrowRight returns when the carousel itself has focus; native video keyboard controls remain independent. Motion preferences switch navigation between smooth and instant scrolling. No autoplay or slider dependency is used.
+
+Cards contain only vertical 9:16 videos with native controls present from the start. There are no custom play overlays, badges or visible captions. Video uses contain against a near-black background. Hover only brightens the border. Sources begin as lazy data-src values with preload none and load near the viewport (180px vertical and 100px horizontal observer margins). Playing one video pauses the others; videos pause when offscreen or when the document is hidden. A shared live status region reports loading failures, and each video keeps its descriptive accessible label.
 
 ### Skills timeline
 Four labeled layers align with colored clips, diamond keyframes and a playhead. A transparent native range input supports pointer/keyboard scrubbing; focus outlines the track container. Play/pause advances a seven-second, 30fps decorative timeline and updates the hero timecode. It does not control project videos. Playback stops at the end and when the document becomes hidden.
