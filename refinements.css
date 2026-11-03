@@ -167,3 +167,10 @@ main,footer{margin-left:0}
 .project-grid.is-dragging{cursor:grabbing;scroll-snap-type:none;scroll-behavior:auto}
 .project-grid.is-dragging *{cursor:grabbing!important}
 
+
+/* Keep one artwork canvas so narrow columns cannot squeeze its orbit. */
+@media(min-width:641px){
+ .hero .hero-art{transform:none;margin:0}
+ .hero-scene{position:absolute;left:50%;top:50%;width:520px;height:465px;transform:translate(-50%,-50%) scale(var(--hero-scene-scale,.7));transform-origin:center;isolation:isolate}
+}
+@media(max-width:640px){.hero-scene{display:contents}}

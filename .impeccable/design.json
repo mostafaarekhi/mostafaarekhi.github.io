@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-03T07:50:32.247Z",
+  "generatedAt": "2026-11-03T07:55:00.138Z",
   "title": "Design System: Mostafa Arekhi Portfolio",
   "extensions": {
     "colorMeta": {
@@ -155,7 +155,15 @@
         "name": "mobile-max",
         "value": "640px"
       }
-    ]
+    ],
+    "heroScene": {
+      "canvasWidth": "520px",
+      "canvasHeight": "465px",
+      "desktopMinWidth": "641px",
+      "scale": "min(1.2, artwork column width / 520)",
+      "sizing": "ResizeObserver updates --hero-scene-scale on the outer hero-art. The centered hero-scene scales all illustration geometry together; the outer container retains layout and artwork loops.",
+      "mobile": "At 640px and below, hero-scene uses display:contents to preserve the existing mobile composition."
+    }
   },
   "components": [
     {

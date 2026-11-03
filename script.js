@@ -148,3 +148,9 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObse
   revealObserver.observe(element);
  });
 }
+
+// Resize the composition as one unit; preserve the shape of every layer.
+const heroArtwork = document.querySelector('.hero-art');
+const sizeHeroScene = width => heroArtwork.style.setProperty('--hero-scene-scale', Math.min(1.2, width / 520));
+sizeHeroScene(heroArtwork.clientWidth);
+new ResizeObserver(entries => sizeHeroScene(entries[0].contentRect.width)).observe(heroArtwork);
