@@ -130,3 +130,5 @@ Ae/Pr/Ps letter marks sit on tinted dark tiles. Services are separate 16px-radiu
 ## Artwork loops
 Hero tile and orbit float gently; the About portrait and layer drift over an 8-second cycle, with opacity breathing in the portrait backlight. CSS composite properties preserve base framing. IntersectionObserver and page visibility pause loops when offscreen or hidden. Reduced-motion preference disables spatial loops and preference changes apply immediately. No dependencies or per-frame JavaScript are added.
 
+
+Contact closing title stays on one line with fluid 24–80px type. Contact buttons pair their existing labels with decorative Telegram, Instagram and WhatsApp SVG icons.
