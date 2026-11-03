@@ -1,0 +1,213 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-03T06:40:13.848Z",
+  "title": "Design System: Mostafa Arekhi Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "bg": {
+        "displayName": "Violet black",
+        "role": "neutral",
+        "tonalRamp": [
+          "oklch(15% 0.02 285)",
+          "oklch(25% 0.02 285)",
+          "oklch(35% 0.02 285)",
+          "oklch(45% 0.02 285)",
+          "oklch(60% 0.02 285)",
+          "oklch(75% 0.02 285)",
+          "oklch(85% 0.02 285)",
+          "oklch(95% 0.02 285)"
+        ]
+      },
+      "line": {
+        "displayName": "Editor divider",
+        "role": "neutral",
+        "tonalRamp": [
+          "oklch(15% 0.03 285)",
+          "oklch(25% 0.03 285)",
+          "oklch(35% 0.03 285)",
+          "oklch(45% 0.03 285)",
+          "oklch(60% 0.03 285)",
+          "oklch(75% 0.03 285)",
+          "oklch(85% 0.03 285)",
+          "oklch(95% 0.03 285)"
+        ]
+      },
+      "text": {
+        "displayName": "Soft white",
+        "role": "neutral",
+        "tonalRamp": [
+          "oklch(15% 0.01 285)",
+          "oklch(25% 0.01 285)",
+          "oklch(35% 0.01 285)",
+          "oklch(45% 0.01 285)",
+          "oklch(60% 0.01 285)",
+          "oklch(75% 0.01 285)",
+          "oklch(85% 0.01 285)",
+          "oklch(95% 0.01 285)"
+        ]
+      },
+      "muted": {
+        "displayName": "Muted lavender grey",
+        "role": "neutral",
+        "tonalRamp": [
+          "oklch(15% 0.03 285)",
+          "oklch(25% 0.03 285)",
+          "oklch(35% 0.03 285)",
+          "oklch(45% 0.03 285)",
+          "oklch(60% 0.03 285)",
+          "oklch(75% 0.03 285)",
+          "oklch(85% 0.03 285)",
+          "oklch(95% 0.03 285)"
+        ]
+      },
+      "purple": {
+        "displayName": "Lavender purple",
+        "role": "primary",
+        "tonalRamp": [
+          "oklch(15% 0.17 300)",
+          "oklch(25% 0.17 300)",
+          "oklch(35% 0.17 300)",
+          "oklch(45% 0.17 300)",
+          "oklch(60% 0.17 300)",
+          "oklch(75% 0.17 300)",
+          "oklch(85% 0.17 300)",
+          "oklch(95% 0.17 300)"
+        ]
+      },
+      "focus": {
+        "displayName": "Pale lavender focus",
+        "role": "primary",
+        "tonalRamp": [
+          "oklch(15% 0.13 310)",
+          "oklch(25% 0.13 310)",
+          "oklch(35% 0.13 310)",
+          "oklch(45% 0.13 310)",
+          "oklch(60% 0.13 310)",
+          "oklch(75% 0.13 310)",
+          "oklch(85% 0.13 310)",
+          "oklch(95% 0.13 310)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Persian hero",
+        "purpose": "Wide-screen introduction; responsive sizes are documented in DESIGN.md."
+      },
+      "body": {
+        "displayName": "Persian body",
+        "purpose": "Default copy and supporting prose."
+      }
+    },
+    "shadows": [
+      {
+        "name": "primary-action",
+        "value": "inset 0 0 0 1px #9c80ff75,0 7px 30px #4523ad25",
+        "purpose": "Subtle action edge and violet depth."
+      },
+      {
+        "name": "ae-extrusion",
+        "value": "14px 16px 0 -3px #382089,21px 24px 24px #090717,0 1px 6px #ba88ff",
+        "purpose": "Dimensional hero object."
+      }
+    ],
+    "motion": [
+      {
+        "name": "action-transition",
+        "value": "background .2s, transform .2s",
+        "purpose": "Hover response."
+      },
+      {
+        "name": "hero-float",
+        "value": "7s ease-in-out infinite",
+        "purpose": "Decorative object motion; disabled with reduced-motion CSS."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "wide-min",
+        "value": "1600px"
+      },
+      {
+        "name": "compact-max",
+        "value": "1200px"
+      },
+      {
+        "name": "tablet-max",
+        "value": "900px"
+      },
+      {
+        "name": "mobile-max",
+        "value": "640px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary action",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Hero primary action.",
+      "html": "<a class=\"ds-primary\" href=\"#projects\" dir=\"rtl\">دیدن پروژه‌ها</a>",
+      "css": ".ds-primary{display:inline-flex;align-items:center;justify-content:center;min-height:51px;padding:10px 25px;border-radius:12px;background:linear-gradient(130deg,#7654e4,#6446de);color:var(--text,#f5f4fa);font:16px Vazirmatn,sans-serif;text-decoration:none;box-shadow:inset 0 0 0 1px #9c80ff75,0 7px 30px #4523ad25;transition:background .2s,transform .2s}.ds-primary:hover{transform:translateY(-3px)}.ds-primary:focus-visible{outline:2px solid #c99cff;outline-offset:6px}@media(prefers-reduced-motion:reduce){.ds-primary{transition:none}}"
+    },
+    {
+      "name": "Secondary action",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Quiet outlined hero action.",
+      "html": "<a class=\"ds-secondary\" href=\"#about\" dir=\"rtl\">درباره من</a>",
+      "css": ".ds-secondary{display:inline-flex;align-items:center;justify-content:center;min-height:51px;min-width:140px;padding:10px 25px;border:1px solid #77738c;border-radius:12px;color:var(--text,#f5f4fa);font:16px Vazirmatn,sans-serif;text-decoration:none;transition:background .2s,transform .2s}.ds-secondary:hover{background:#ffffff08;transform:translateY(-3px)}.ds-secondary:focus-visible{outline:2px solid #c99cff;outline-offset:6px}@media(prefers-reduced-motion:reduce){.ds-secondary{transition:none}}"
+    },
+    {
+      "name": "Header navigation",
+      "kind": "nav",
+      "description": "RTL section links with active underline.",
+      "html": "<nav class=\"ds-nav\" dir=\"rtl\"><a class=\"ds-active\" href=\"#home\">خانه</a><a href=\"#projects\">پروژه‌ها</a><a href=\"#contact\">تماس</a></nav>",
+      "css": ".ds-nav{display:flex;gap:18px;background:#11111bed;font:16px Vazirmatn,sans-serif}.ds-nav a{padding:18px 21px;color:#dedce8;text-decoration:none;position:relative}.ds-nav a:after{content:\"\";height:3px;position:absolute;bottom:0;left:0;right:0;background:#a373ef;transform:scaleX(0);transition:transform .25s}.ds-nav a:hover:after,.ds-nav .ds-active:after{transform:scaleX(1)}.ds-nav .ds-active{color:#fff;background:linear-gradient(0deg,#6e41b511,transparent)}.ds-nav a:focus-visible{outline:2px solid #c99cff;outline-offset:6px}@media(prefers-reduced-motion:reduce){.ds-nav a:after{transition:none}}"
+    },
+    {
+      "name": "Software tile",
+      "kind": "custom",
+      "description": "After Effects letter mark tile.",
+      "html": "<span class=\"ds-software\" aria-label=\"After Effects\">Ae</span>",
+      "css": ".ds-software{display:grid;place-items:center;width:39px;height:39px;border:1px solid currentColor;border-radius:8px;font:600 25px/1 Arial,sans-serif;color:#b28aff;background:#10052e}"
+    },
+    {
+      "name": "Project card",
+      "kind": "card",
+      "refersTo": "project-card",
+      "description": "Representative preview frame and metadata. Production cards embed the existing videos.",
+      "html": "<article class=\"ds-card\" dir=\"rtl\"><div class=\"ds-media\"><span class=\"ds-badge\">Pr</span><button class=\"ds-play\" aria-label=\"پخش نمونه‌کار\"><svg viewBox=\"0 0 24 24\" width=\"22\" height=\"22\" aria-hidden=\"true\"><path fill=\"currentColor\" d=\"m8 5 11 7-11 7Z\"/></svg></button></div><div class=\"ds-meta\"><p>شبکه‌های اجتماعی</p><h3>روایت در هر کات</h3></div></article>",
+      "css": ".ds-card{overflow:hidden;border:1px solid #40344f;border-radius:17px;background:#15111e;color:var(--text,#f5f4fa);font-family:Vazirmatn,sans-serif;transition:transform .25s,border-color .25s}.ds-card:hover{transform:translateY(-5px);border-color:#9973ca}.ds-media{position:relative;aspect-ratio:1.65;background:radial-gradient(ellipse at 50% 70%,#4d217b,#170d2b 70%)}.ds-badge{position:absolute;top:12px;right:12px;display:grid;place-items:center;width:30px;height:30px;border:1px solid #ab6fe0;border-radius:5px;background:#17072e;color:#bf8afa;font:20px Arial,sans-serif}.ds-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:grid;place-items:center;width:51px;height:51px;border:1px solid #b399d370;border-radius:50%;background:#1c102dcc;color:#eee1ff;cursor:pointer}.ds-play:hover{background:#7645bc}.ds-play:focus-visible{outline:2px solid #c99cff;outline-offset:6px}.ds-meta{padding:15px 18px}.ds-meta p{font-size:11px;color:#ac99bf;margin:0 0 4px}.ds-meta h3{font-size:16px;font-weight:500;margin:0}@media(prefers-reduced-motion:reduce){.ds-card{transition:none}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Neon After Effects Workspace",
+    "overview": "The supplied Neon After Effects Portfolio UI reference governs the implemented world: a violet-black editor frame, lavender illumination, a dimensional Ae object and orbit, and a compact skills timeline. Persian copy gives the portfolio its voice; actual project videos and the portrait provide its substance.\n\nThe interface combines dense editor details with open space around the introduction and contact invitation. Decorative controls suggest a creative workspace; functional controls remain identifiable as navigation, playback, timeline scrubbing and contact links.",
+    "keyCharacteristics": [
+      "Dark editor panels with quiet violet borders.",
+      "Persian hierarchy with deliberate LTR islands for filenames, software marks and time.",
+      "Neon depth concentrated in the Ae illustration.",
+      "Real video previews with native playback controls."
+    ],
+    "rules": [
+      {
+        "name": "The Local Glow Rule",
+        "body": "Keep the strongest glow around the hero object and orbit; content panels retain quiet borders and restrained gradients.",
+        "section": "colors"
+      }
+    ],
+    "dos": [
+      "Do preserve Persian reading order and explicit LTR filenames, marks and timecodes.",
+      "Do keep real videos, the portrait and existing contact destinations as the content anchors.",
+      "Do retain visible keyboard focus, labeled controls and reduced-motion CSS behavior.",
+      "Do concentrate dimensional neon effects in the hero artwork."
+    ],
+    "donts": [
+      "Don't turn decorative window chrome, tool icons or selection handles into apparent working controls.",
+      "Don't replace native video playback with a decorative-only player.",
+      "Don't flatten the mobile layout into a scaled desktop canvas."
+    ]
+  }
+}
