@@ -1,0 +1,100 @@
+[
+  {
+    "file": "assets/Usher-01.mp4",
+    "before_bytes": 3980205,
+    "after_bytes": 3978511,
+    "video_audio_unchanged": true,
+    "faststart": true
+  },
+  {
+    "file": "assets/Usher-03.mp4",
+    "before_bytes": 5340452,
+    "after_bytes": 5339222,
+    "video_audio_unchanged": true,
+    "faststart": true
+  },
+  {
+    "file": "assets/Usher-04.mp4",
+    "before_bytes": 3715447,
+    "after_bytes": 3713979,
+    "video_audio_unchanged": true,
+    "faststart": true
+  },
+  {
+    "file": "assets/Usher-09-2.mp4",
+    "before_bytes": 8797224,
+    "after_bytes": 8795263,
+    "video_audio_unchanged": true,
+    "faststart": true
+  },
+  {
+    "file": "assets/Usher-12.mp4",
+    "before_bytes": 3523610,
+    "after_bytes": 3522684,
+    "video_audio_unchanged": true,
+    "faststart": true
+  },
+  {
+    "file": "assets/Usher-13-2.mp4",
+    "before_bytes": 2673180,
+    "after_bytes": 2672521,
+    "video_audio_unchanged": true,
+    "faststart": true
+  },
+  {
+    "file": "assets/Usher-14.mp4",
+    "before_bytes": 13489164,
+    "after_bytes": 13486801,
+    "video_audio_unchanged": true,
+    "faststart": true
+  },
+  {
+    "file": "assets/Arkan-84.mp4",
+    "before_bytes": 5695448,
+    "after_bytes": 5694317,
+    "video_audio_unchanged": true,
+    "faststart": true
+  },
+  {
+    "file": "assets/Arkan-88-2.mp4",
+    "before_bytes": 6175771,
+    "after_bytes": 6174434,
+    "video_audio_unchanged": true,
+    "faststart": true
+  },
+  {
+    "file": "assets/Arkan-108-2.mp4",
+    "before_bytes": 12818708,
+    "after_bytes": 12816634,
+    "video_audio_unchanged": true,
+    "faststart": true
+  },
+  {
+    "file": "assets/Arkan-116.mp4",
+    "before_bytes": 7234261,
+    "after_bytes": 7232271,
+    "video_audio_unchanged": true,
+    "faststart": true
+  },
+  {
+    "file": "assets/Arkan-118.mp4",
+    "before_bytes": 5428392,
+    "after_bytes": 5427023,
+    "video_audio_unchanged": true,
+    "faststart": true
+  },
+  {
+    "file": "assets/Arkan-120.mp4",
+    "before_bytes": 4195369,
+    "after_bytes": 4193094,
+    "video_audio_unchanged": true,
+    "faststart": true
+  },
+  {
+    "file": "assets/Arkan-122.mp4",
+    "before_bytes": 4434697,
+    "after_bytes": 4432862,
+    "video_audio_unchanged": true,
+    "faststart": true
+  }
+]
