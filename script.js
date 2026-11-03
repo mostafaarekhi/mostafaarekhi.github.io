@@ -11,13 +11,12 @@ navLinks.forEach(link => { const section = document.querySelector(link.hash); if
 const cards = [...document.querySelectorAll('.project-card')];
 const feedback = document.querySelector('.video-feedback');
 cards.forEach(card => {
- const video = card.querySelector('video'), play = card.querySelector('.project-play');
- play.addEventListener('click', async () => { cards.forEach(other => { if (other !== card) other.querySelector('video').pause(); }); feedback.textContent = ''; video.controls = true; try { await video.play(); video.focus(); } catch { video.controls = false; feedback.textContent = 'ویدیو پخش نشد. اتصال اینترنت را بررسی کن و دوباره دکمه پخش را بزن.'; } });
- video.addEventListener('play', () => { cards.forEach(other => { if (other !== card) other.querySelector('video').pause(); }); card.classList.add('is-playing'); play.tabIndex = -1; });
- video.addEventListener('pause', () => { card.classList.remove('is-playing'); play.tabIndex = 0; });
- video.addEventListener('ended', () => { card.classList.remove('is-playing'); play.tabIndex = 0; video.controls = false; });
- video.addEventListener('error', () => { card.classList.remove('is-playing'); play.tabIndex = 0; feedback.textContent = 'دریافت یکی از ویدیوها ممکن نشد. صفحه را دوباره بارگذاری کن.'; });
+ const video = card.querySelector('video');
+ video.addEventListener('play', () => { feedback.textContent = ''; cards.forEach(other => { if (other !== card) other.querySelector('video').pause(); }); });
+ video.addEventListener('error', () => { feedback.textContent = 'دریافت یکی از ویدیوها ممکن نشد. صفحه را دوباره بارگذاری کن.'; });
 });
+const mediaObserver = new IntersectionObserver(entries => { entries.forEach(entry => { if (!entry.isIntersecting) entry.target.pause(); }); });
+cards.forEach(card => mediaObserver.observe(card.querySelector('video')));
 const scrubber = document.querySelector('.timeline-scrubber'), playhead = document.querySelector('.playhead'), timelineButton = document.querySelector('.timeline-play'), timecode = document.querySelector('#art-timecode');
 let animationFrame = null, previousTime = 0, position = Number(scrubber.value);
 function renderTimeline() { playhead.style.setProperty('--position', `${position / 210 * 100}%`); timecode.textContent = `00:00:${String(Math.floor(position / 30)).padStart(2, '0')}:${String(Math.floor(position % 30)).padStart(2, '0')}`; scrubber.value = position; }
@@ -27,3 +26,14 @@ timelineButton.addEventListener('click', () => { if (animationFrame !== null) { 
 scrubber.addEventListener('input', () => { position = Number(scrubber.value); renderTimeline(); });
 document.addEventListener('visibilitychange', () => { if (document.hidden) { stopTimeline(); cards.forEach(card => card.querySelector('video').pause()); } });
 document.querySelector('#year').textContent = new Intl.NumberFormat('fa', {useGrouping: false}).format(new Date().getFullYear());
+
+// One entrance per element; only compositor-friendly opacity and transform.
+if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+ const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); revealObserver.unobserve(entry.target); } });
+ }, { threshold: .08, rootMargin: '0px 0px 35px 0px' });
+ document.querySelectorAll('.hero-copy,.hero-art,.timeline-panel,.projects,.project-card,.about-art,.about-copy,.services,.service-list>div,.contact-section,footer').forEach(element => {
+  element.classList.add('reveal');
+  revealObserver.observe(element);
+ });
+}
