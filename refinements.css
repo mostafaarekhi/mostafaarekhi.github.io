@@ -141,3 +141,9 @@ main,footer{margin-left:0}
 
 
 
+
+/* A single-line closing title, with recognizable contact destinations. */
+.contact-section h2{white-space:nowrap;font-size:clamp(24px,5.2vw,80px)}
+.contact-label{display:inline-flex;align-items:center;gap:12px}
+.contact-label img{display:block;width:26px;height:26px;object-fit:contain;filter:invert(1)}
+@media(max-width:640px){.contact-label{gap:11px}.contact-label img{width:24px;height:24px}}
