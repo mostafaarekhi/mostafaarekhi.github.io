@@ -30,7 +30,7 @@ cards.forEach(card => {
  };
  const togglePlayback = () => {
   if (!video.paused) { video.pause(); return; }
-  if (!video.getAttribute('src')) { video.src = video.dataset.src; video.load(); }
+  if (!video.getAttribute('src')) { video.preload = 'auto'; video.src = video.dataset.src; video.load(); }
   video.play().catch(() => { feedback.textContent = 'پخش ویدیو ممکن نشد. دوباره تلاش کن.'; });
  };
  toggle.addEventListener('click', togglePlayback);
@@ -41,17 +41,7 @@ cards.forEach(card => {
 });
 const mediaObserver = new IntersectionObserver(entries => { entries.forEach(entry => { if (!entry.isIntersecting) entry.target.pause(); }); });
 cards.forEach(card => mediaObserver.observe(card.querySelector('video')));
-const lazyVideoObserver = new IntersectionObserver(entries => {
- entries.forEach(entry => {
-  if (!entry.isIntersecting) return;
-  const video = entry.target;
-  video.preload = 'metadata';
-  video.src = video.dataset.src;
-  video.load();
-  lazyVideoObserver.unobserve(video);
- });
-}, { rootMargin: '180px 100px' });
-cards.forEach(card => lazyVideoObserver.observe(card.querySelector('video')));
+// Posters are independent; fetch video bytes only after a play request.
 
 const previousProjects = document.querySelector('.project-prev');
 const nextProjects = document.querySelector('.project-next');
