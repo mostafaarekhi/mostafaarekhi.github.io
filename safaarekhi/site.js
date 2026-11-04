@@ -48,6 +48,10 @@ const dialogTitle = dialog.querySelector("#dialog-title");
 const dialogLabel = dialog.querySelector("#dialog-label");
 const dialogCopy = dialog.querySelector("#dialog-copy");
 
+dialog.addEventListener("click", (event) => {
+  if (event.target === dialog) dialog.close();
+});
+
 function showDialog({ title, label, description, photo }) {
   dialogTitle.textContent = title;
   dialogLabel.textContent = label;
@@ -89,4 +93,38 @@ if (Object.values(contactLinks).some(Boolean)) {
   for (const entry of document.querySelectorAll("[data-contact-entry]")) {
     entry.hidden = false;
   }
+}
+
+const header = document.querySelector(".site-header");
+if (header) {
+  const navigation = Array.from(header.querySelectorAll('a[href^="#"]:not(.brand):not([hidden])'), (link) => ({
+    link,
+    section: document.getElementById(link.hash.slice(1)),
+  }));
+  let activeLink;
+  let frame = 0;
+
+  function updateNavigation() {
+    frame = 0;
+    header.classList.toggle("is-scrolled", window.scrollY > 32);
+    const readingLine = Math.max(header.offsetHeight + 28, window.innerHeight * .28);
+    const atBottom = window.scrollY > 0 &&
+      window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 3;
+    const current = atBottom
+      ? navigation.at(-1)
+      : navigation.findLast(({ section }) => section && section.getBoundingClientRect().top <= readingLine);
+    if (!current || current.link === activeLink) return;
+    activeLink?.removeAttribute("aria-current");
+    current.link.setAttribute("aria-current", "location");
+    activeLink = current.link;
+  }
+
+  function scheduleNavigationUpdate() {
+    if (!frame) frame = window.requestAnimationFrame(updateNavigation);
+  }
+
+  activeLink = header.querySelector("[aria-current]");
+  window.addEventListener("scroll", scheduleNavigationUpdate, { passive: true });
+  window.addEventListener("resize", scheduleNavigationUpdate);
+  updateNavigation();
 }
