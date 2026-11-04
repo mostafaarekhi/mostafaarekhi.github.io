@@ -145,7 +145,11 @@ const scrubber = document.querySelector('.timeline-scrubber'), playhead = docume
 let animationFrame = null, previousTime = 0, position = Number(scrubber.value);
 let timelineInView = false, timelinePausedByUser = false;
 const timelineMotion = matchMedia('(prefers-reduced-motion: reduce)');
-function renderTimeline() { playhead.style.setProperty('--position', `${position / 210 * 100}%`); timecode.textContent = `00:00:${String(Math.floor(position / 30)).padStart(2, '0')}:${String(Math.floor(position % 30)).padStart(2, '0')}`; scrubber.value = position; }
+function renderTimeline() {
+ playhead.style.setProperty('--position', `${position / 210 * 100}%`);
+ timecode.textContent = `00:00:${String(Math.floor(position / 30)).padStart(2, '0')}:${String(Math.floor(position % 30)).padStart(2, '0')}`;
+ scrubber.value = position;
+}
 function stopTimeline() { cancelAnimationFrame(animationFrame); animationFrame = null; timelineButton.setAttribute('aria-pressed', 'false'); timelineButton.setAttribute('aria-label', 'پخش تایم‌لاین'); timelineButton.querySelector('use').setAttribute('href', '#play'); }
 function animateTimeline(time) { if (previousTime) position += Math.min(time - previousTime, 100) * .03; previousTime = time; if (position >= 210) position %= 210; renderTimeline(); animationFrame = requestAnimationFrame(animateTimeline); }
 function startTimeline() {
@@ -174,7 +178,7 @@ scrubber.addEventListener('input', () => { position = Number(scrubber.value); re
 document.addEventListener('visibilitychange', () => { syncTimeline(); if (document.hidden) cards.forEach(card => releaseVideo(card.querySelector('video'))); });
 document.querySelector('#year').textContent = new Intl.NumberFormat('fa', {useGrouping: false}).format(new Date().getFullYear());
 
-// Run the two artwork loops only while visible and motion is allowed.
+// Run the artwork loops only while visible and motion is allowed.
 const loopPreference = matchMedia('(prefers-reduced-motion: reduce)');
 const loopVisibility = new Map();
 function syncArtworkLoops() {
@@ -204,3 +208,18 @@ const heroArtwork = document.querySelector('.hero-art');
 const sizeHeroScene = width => heroArtwork.style.setProperty('--hero-scene-scale', Math.min(1.2, width / 520));
 sizeHeroScene(heroArtwork.clientWidth);
 new ResizeObserver(entries => sizeHeroScene(entries[0].contentRect.width)).observe(heroArtwork);
+
+// Enhance each card or artwork when it approaches the viewport.
+const tiltTargets = document.querySelectorAll('.hero-art,.about-art,.service-list > .service-card');
+if (tiltTargets.length && matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+ const tiltObserver = new IntersectionObserver(entries => {
+  for (const entry of entries) {
+   if (!entry.isIntersecting) continue;
+   tiltObserver.unobserve(entry.target);
+   import('./assets/service-tilt.js?v=art-tilt').then(({ mountTiltedCard }) => {
+    mountTiltedCard(entry.target);
+   }).catch(error => console.warn('TiltedCard unavailable', error));
+  }
+ }, { rootMargin: '280px' });
+ tiltTargets.forEach(target => tiltObserver.observe(target));
+}

@@ -63,7 +63,6 @@ main,footer{margin-left:0}
 .about-art .about-layer{animation:layer-drift 8s ease-in-out -2s infinite;animation-play-state:paused}
 .about-art .portrait-photo:before{animation:portrait-light 8s ease-in-out infinite;animation-play-state:paused}
 .is-looping .ae-object,.is-looping .orbit,.is-looping .about-portrait,.is-looping .about-layer,.is-looping .portrait-photo:before{animation-play-state:running}
-@keyframes orbit-breathe{0%,100%{translate:0 0;opacity:.84}50%{translate:0 -5px;opacity:1}}
 @keyframes portrait-drift{0%,100%{translate:0 0;rotate:0deg}50%{translate:0 -10px;rotate:-1.2deg}}
 @keyframes layer-drift{0%,100%{translate:0 0}50%{translate:0 7px}}
 @keyframes portrait-light{0%,100%{opacity:.45}50%{opacity:1}}
@@ -190,3 +189,62 @@ main,footer{margin-left:0}
 .project-card.is-buffering .video-toggle:after{content:'';position:absolute;inset:17px;border:2px solid #ffffff40;border-top-color:#fff;border-radius:50%;animation:video-buffer-spin .8s linear infinite}
 @keyframes video-buffer-spin{to{transform:rotate(360deg)}}
 @media(prefers-reduced-motion:reduce){.project-card.is-buffering .video-toggle:after{animation:none}}
+
+/* Shorter mobile introduction, with more room for the first project. */
+@media(max-width:640px){
+ .hero{padding-block:18px 12px}
+ .hero-copy{padding-top:4px}
+ .hero h1{line-height:1.45}
+ .hero-art{transform:scale(.62);margin:16px -16px -125px}
+ .software{margin-top:18px}
+ .timeline-panel{margin-block:0 16px}
+ .timeline-heading{height:44px}
+ .ruler{height:28px}
+ .layer,.track{height:23px}
+ .clip{height:17px}
+ .playhead{top:28px}
+ .timeline-scrubber{top:24px}
+}
+
+/* Real project frames inside the editor-inspired service cards. */
+.preview-screen{overflow:hidden}
+.preview-screen::before,.preview-screen::after{content:none}
+.preview-screen img{width:100%;height:100%;object-fit:cover;display:block}
+.motion-footage{position:absolute;z-index:1;inset-block:0 10px;left:50%;transform:translateX(-50%);aspect-ratio:9/16;border:1px solid #806097;border-radius:8px;overflow:hidden;box-shadow:0 8px 22px #0007}
+.motion-footage img{width:100%;height:100%;object-fit:cover;display:block}
+
+.contact-section{min-height:0;padding-block:clamp(44px,6vw,78px) 32px;margin-bottom:16px}
+
+/* TiltedCard keeps the existing service content in the normal layout flow. */
+.service-list>.service-card.tilt-mount{
+ --tilt-surface:#15111e;
+ --tilt-border:#45324f;
+ display:block;
+ border:0;
+ background:none;
+ overflow:visible;
+}
+.service-list>.motion-service.tilt-mount{--tilt-surface:#181124;--tilt-border:#674580}
+.service-list>.design-service.tilt-mount{--tilt-surface:#111a22;--tilt-border:#2e4554}
+.service-tilt .tilted-card__front{
+ position:relative;
+ height:100%;
+ background:var(--tilt-surface);
+ border:1px solid var(--tilt-border);
+}
+.service-tilt .tilted-card__layer.tilt-face{position:relative;inset:auto}
+.service-tilt .tilted-card__caption{background:#f0defe;color:#261831;z-index:8}
+@media(min-width:641px) and (max-width:900px){
+ .tilt-content{display:grid;grid-template-columns:45% 55%;direction:ltr}
+}
+
+/* Keep the artwork's original canvas and allow its floating layers to extend past it. */
+.art-tilt-mount .art-tilt{position:absolute;inset:0}
+.art-tilt .tilted-card__front{overflow:visible}
+.art-tilt-content{position:absolute;inset:0}
+.about-art .art-tilt-content{display:grid;place-items:center}
+.art-tilt .tilted-card__rim,.art-tilt .tilted-card__edge{display:none}
+.art-tilt .tilted-card__glare{mask-image:radial-gradient(ellipse at center,#000 12%,transparent 68%)}
+
+
+@keyframes orbit-breathe{0%,100%{translate:0 0;opacity:.84}50%{translate:0 -5px;opacity:1}}
