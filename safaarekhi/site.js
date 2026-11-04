@@ -58,10 +58,6 @@ filters.addEventListener("click", (event) => {
 });
 filters.hidden = false;
 
-for (const link of document.querySelectorAll("[data-feature-filter]")) {
-  link.addEventListener("click", () => showCategory(link.dataset.featureFilter));
-}
-
 if (galleryNav && projectGrid) {
   galleryNav.hidden = false;
   projectGrid.addEventListener("scroll", syncGallery, { passive: true });
@@ -174,35 +170,8 @@ if ("IntersectionObserver" in window && !motion.matches) {
     }
   }, { threshold: .09, rootMargin: "0px 0px 25px 0px" });
 
-  for (const element of document.querySelectorAll("#work .section-heading, .tools-section .section-heading, .tool-grid li, .about-visual, .about-copy, .contact")) {
+  for (const element of document.querySelectorAll("#work .section-heading, .tools-layout, .about-visual, .about-copy, .contact")) {
     element.classList.add("scroll-reveal");
     revealObserver.observe(element);
-  }
-
-  const artwork = document.querySelector(".hero-stage");
-  const artworkObserver = new IntersectionObserver(([entry]) => {
-    artwork.classList.toggle("is-in-view", entry.isIntersecting);
-  });
-  artworkObserver.observe(artwork);
-}
-
-if (!motion.matches && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
-  for (const card of document.querySelectorAll(".feature-card, .tool-grid li")) {
-    let bounds;
-    card.addEventListener("pointerenter", (event) => {
-      if (event.pointerType === "mouse") bounds = card.getBoundingClientRect();
-    });
-    card.addEventListener("pointermove", (event) => {
-      if (!bounds || event.pointerType !== "mouse" || motion.matches) return;
-      const x = (event.clientX - bounds.left) / bounds.width - .5;
-      const y = (event.clientY - bounds.top) / bounds.height - .5;
-      card.style.setProperty("--tilt-x", `${-y * 6}deg`);
-      card.style.setProperty("--tilt-y", `${x * 6}deg`);
-    });
-    card.addEventListener("pointerleave", () => {
-      bounds = undefined;
-      card.style.removeProperty("--tilt-x");
-      card.style.removeProperty("--tilt-y");
-    });
   }
 }
