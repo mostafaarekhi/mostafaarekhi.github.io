@@ -258,3 +258,13 @@ main,footer{margin-left:0}
 @media(max-width:640px){
  .timeline-panel,.projects.panel-section,.contact-section{width:calc(100% - 30px)}
 }
+
+@media(min-width:641px){
+ .hero{
+  width:min(1480px, calc(100% - 56px));
+  padding-inline-start:clamp(26px, 2.5vw, 40px);
+ }
+}
+@media(min-width:641px) and (max-width:900px){
+ .hero{width:calc(100% - 50px)}
+}
