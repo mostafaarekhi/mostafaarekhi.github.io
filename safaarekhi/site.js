@@ -9,6 +9,7 @@ const formatCount = new Intl.NumberFormat("fa-IR");
 const projectGrid = document.querySelector(".project-grid");
 const galleryNav = document.querySelector(".gallery-nav");
 const galleryButtons = galleryNav?.querySelectorAll("button");
+const galleryCount = galleryNav?.querySelector(".gallery-count");
 
 function galleryPosition() {
   const visible = projects.filter((project) => !project.hidden);
@@ -20,9 +21,98 @@ function galleryPosition() {
 function syncGallery() {
   if (!galleryNav) return;
   const { visible, index } = galleryPosition();
-  galleryButtons[0].disabled = index === 0;
-  galleryButtons[1].disabled = index >= visible.length - 1;
-  galleryNav.dataset.position = index;
+  galleryButtons[0].setAttribute("aria-disabled", String(index === 0));
+  galleryButtons[1].setAttribute("aria-disabled", String(index >= visible.length - 1));
+  const count = `${formatCount.format(index + 1)} از ${formatCount.format(visible.length)}`;
+  if (galleryCount.value === count) return;
+  galleryCount.value = count;
+  galleryNav.style.setProperty("--gallery-index", index);
+  galleryNav.style.setProperty("--gallery-count", visible.length);
+}
+
+function stepGallery(step) {
+  const { visible, index } = galleryPosition();
+  const target = visible[index + step];
+  if (target) scrollToProject(visible, target);
+}
+
+function scrollToProject(visible, target) {
+  const left = target.getBoundingClientRect().right - visible[0].getBoundingClientRect().right;
+  projectGrid.scrollTo({ left, behavior: motion.matches ? "instant" : "smooth" });
+}
+
+function bindGalleryGestures() {
+  let gesture;
+  let suppressClick = false;
+  let lastWheelStep = -Infinity;
+
+  projectGrid.addEventListener("dragstart", (event) => event.preventDefault());
+  projectGrid.addEventListener("pointerdown", (event) => {
+    if (!event.isPrimary || event.button !== 0) return;
+    suppressClick = false;
+    gesture = {
+      id: event.pointerId,
+      x: event.clientX,
+      y: event.clientY,
+      left: projectGrid.scrollLeft,
+      ...galleryPosition(),
+    };
+  });
+  projectGrid.addEventListener("pointermove", (event) => {
+    if (gesture?.id !== event.pointerId) return;
+    const dx = event.clientX - gesture.x;
+    const dy = event.clientY - gesture.y;
+    if (!gesture.dragging) {
+      if (Math.abs(dy) > 8 && Math.abs(dy) > Math.abs(dx)) {
+        gesture = undefined;
+        return;
+      }
+      if (Math.abs(dx) < 8) return;
+      gesture.dragging = true;
+      suppressClick = true;
+      projectGrid.dataset.dragging = "";
+      projectGrid.setPointerCapture(event.pointerId);
+    }
+    projectGrid.scrollLeft = gesture.left - dx;
+  });
+
+  function finishDrag(event) {
+    if (gesture?.id !== event.pointerId) return;
+    const { dragging, index, visible, x } = gesture;
+    gesture = undefined;
+    if (!dragging) return;
+    delete projectGrid.dataset.dragging;
+    const distance = event.clientX - x;
+    const threshold = Math.min(60, projectGrid.clientWidth * .12);
+    const step = event.type === "pointerup" && Math.abs(distance) >= threshold ? Math.sign(distance) : 0;
+    scrollToProject(visible, visible[index + step] ?? visible[index]);
+  }
+
+  projectGrid.addEventListener("pointerup", finishDrag);
+  projectGrid.addEventListener("pointercancel", finishDrag);
+  projectGrid.addEventListener("pointerleave", () => {
+    if (gesture && !gesture.dragging) gesture = undefined;
+  });
+  projectGrid.addEventListener("click", (event) => {
+    if (!suppressClick || event.detail === 0) return;
+    suppressClick = false;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+  }, true);
+
+  projectGrid.addEventListener("wheel", (event) => {
+    if (event.ctrlKey || event.shiftKey || Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
+    if (event.timeStamp - lastWheelStep < 350) {
+      event.preventDefault();
+      return;
+    }
+    const { visible, index } = galleryPosition();
+    const target = visible[index + Math.sign(event.deltaY)];
+    if (!target) return;
+    event.preventDefault();
+    lastWheelStep = event.timeStamp;
+    scrollToProject(visible, target);
+  }, { passive: false });
 }
 
 function showCategory(category) {
@@ -59,17 +149,18 @@ filters.addEventListener("click", (event) => {
 filters.hidden = false;
 
 if (galleryNav && projectGrid) {
+  projectGrid.dataset.carousel = "";
   galleryNav.hidden = false;
+  bindGalleryGestures();
   projectGrid.addEventListener("scroll", syncGallery, { passive: true });
+  projectGrid.addEventListener("keydown", (event) => {
+    if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+    event.preventDefault();
+    stepGallery(event.key === "ArrowLeft" ? 1 : -1);
+  });
   window.addEventListener("resize", syncGallery);
   for (const button of galleryButtons) {
-    button.addEventListener("click", () => {
-      const { visible, index } = galleryPosition();
-      const target = visible[index + Number(button.dataset.galleryStep)];
-      if (!target) return;
-      const distance = target.getBoundingClientRect().right - projectGrid.getBoundingClientRect().right;
-      projectGrid.scrollBy({ left: distance, behavior: motion.matches ? "instant" : "smooth" });
-    });
+    button.addEventListener("click", () => stepGallery(Number(button.dataset.galleryStep)));
   }
   syncGallery();
 }
