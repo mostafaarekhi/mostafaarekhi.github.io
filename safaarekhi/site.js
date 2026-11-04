@@ -6,6 +6,24 @@ const projects = Array.from(document.querySelectorAll(".project"));
 const filterStatus = document.querySelector("#filter-status");
 const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const formatCount = new Intl.NumberFormat("fa-IR");
+const projectGrid = document.querySelector(".project-grid");
+const galleryNav = document.querySelector(".gallery-nav");
+const galleryButtons = galleryNav?.querySelectorAll("button");
+
+function galleryPosition() {
+  const visible = projects.filter((project) => !project.hidden);
+  const edge = projectGrid.getBoundingClientRect().right;
+  const index = visible.findIndex((project) => project.getBoundingClientRect().right <= edge + project.offsetWidth / 2);
+  return { visible, index: Math.max(0, index) };
+}
+
+function syncGallery() {
+  if (!galleryNav) return;
+  const { visible, index } = galleryPosition();
+  galleryButtons[0].disabled = index === 0;
+  galleryButtons[1].disabled = index >= visible.length - 1;
+  galleryNav.dataset.position = index;
+}
 
 function showCategory(category) {
   for (const button of filterButtons) {
@@ -28,6 +46,8 @@ function showCategory(category) {
     visibleCount += 1;
   }
   filterStatus.textContent = formatCount.format(visibleCount) + " پروژه نمایش داده می‌شود.";
+  projectGrid?.scrollTo({ left: 0, behavior: "instant" });
+  syncGallery();
 }
 
 filters.addEventListener("click", (event) => {
@@ -40,6 +60,22 @@ filters.hidden = false;
 
 for (const link of document.querySelectorAll("[data-feature-filter]")) {
   link.addEventListener("click", () => showCategory(link.dataset.featureFilter));
+}
+
+if (galleryNav && projectGrid) {
+  galleryNav.hidden = false;
+  projectGrid.addEventListener("scroll", syncGallery, { passive: true });
+  window.addEventListener("resize", syncGallery);
+  for (const button of galleryButtons) {
+    button.addEventListener("click", () => {
+      const { visible, index } = galleryPosition();
+      const target = visible[index + Number(button.dataset.galleryStep)];
+      if (!target) return;
+      const distance = target.getBoundingClientRect().right - projectGrid.getBoundingClientRect().right;
+      projectGrid.scrollBy({ left: distance, behavior: motion.matches ? "instant" : "smooth" });
+    });
+  }
+  syncGallery();
 }
 
 const dialog = document.querySelector("#detail-dialog");
@@ -127,4 +163,46 @@ if (header) {
   window.addEventListener("scroll", scheduleNavigationUpdate, { passive: true });
   window.addEventListener("resize", scheduleNavigationUpdate);
   updateNavigation();
+}
+
+if ("IntersectionObserver" in window && !motion.matches) {
+  const revealObserver = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      entry.target.classList.add("is-revealed");
+      revealObserver.unobserve(entry.target);
+    }
+  }, { threshold: .09, rootMargin: "0px 0px 25px 0px" });
+
+  for (const element of document.querySelectorAll("#work .section-heading, .tools-section .section-heading, .tool-grid li, .about-visual, .about-copy, .contact")) {
+    element.classList.add("scroll-reveal");
+    revealObserver.observe(element);
+  }
+
+  const artwork = document.querySelector(".hero-stage");
+  const artworkObserver = new IntersectionObserver(([entry]) => {
+    artwork.classList.toggle("is-in-view", entry.isIntersecting);
+  });
+  artworkObserver.observe(artwork);
+}
+
+if (!motion.matches && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+  for (const card of document.querySelectorAll(".feature-card, .tool-grid li")) {
+    let bounds;
+    card.addEventListener("pointerenter", (event) => {
+      if (event.pointerType === "mouse") bounds = card.getBoundingClientRect();
+    });
+    card.addEventListener("pointermove", (event) => {
+      if (!bounds || event.pointerType !== "mouse" || motion.matches) return;
+      const x = (event.clientX - bounds.left) / bounds.width - .5;
+      const y = (event.clientY - bounds.top) / bounds.height - .5;
+      card.style.setProperty("--tilt-x", `${-y * 6}deg`);
+      card.style.setProperty("--tilt-y", `${x * 6}deg`);
+    });
+    card.addEventListener("pointerleave", () => {
+      bounds = undefined;
+      card.style.removeProperty("--tilt-x");
+      card.style.removeProperty("--tilt-y");
+    });
+  }
 }
