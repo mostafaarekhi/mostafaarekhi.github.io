@@ -268,3 +268,11 @@ main,footer{margin-left:0}
 @media(min-width:641px) and (max-width:900px){
  .hero{width:calc(100% - 50px)}
 }
+
+@media(max-width:640px){
+ .hero .hero-art{margin:26px -16px -150px}
+ .hero-art :is(.floating-plane,.checker-plane,.selection-box,.timecode,.floating-film,.curve-panel){display:none}
+ .hero-art .ae-object{top:43px;left:calc(50% - 110px)}
+ .hero-art .orbit{top:164px;left:4%;width:92%}
+ .hero .hero-waves .gradient-waves-canvas{opacity:.44}
+}
