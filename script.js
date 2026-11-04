@@ -223,3 +223,16 @@ if (tiltTargets.length && matchMedia('(prefers-reduced-motion: no-preference)').
  }, { rootMargin: '280px' });
  tiltTargets.forEach(target => tiltObserver.observe(target));
 }
+
+// Load the hero background after its styles are ready.
+{
+ const wavesStyles = document.createElement('link');
+ wavesStyles.rel = 'stylesheet';
+ wavesStyles.href = 'assets/hero-waves.css?v=original';
+ wavesStyles.addEventListener('load', () => {
+  import('./assets/hero-waves.js?v=original')
+   .then(({ mountHeroWaves }) => mountHeroWaves(document.querySelector('.hero')))
+   .catch(error => console.warn('GradientWaves unavailable', error));
+ }, { once: true });
+ document.head.append(wavesStyles);
+}
